@@ -2,6 +2,10 @@
 
 	'use strict';
 
+	var version = '1.0a',
+		name = 'Picky',
+		mod = {};
+
 	$.fn.picky = function(settings, params) {
 		
 		var results = [];
@@ -68,7 +72,46 @@
 
 			init: function() {
 
-				console.log('Init Test!');
+				setUp.defineModules();
+
+				if(!setUp.checks()) return;
+
+			},
+
+			defineModules: function() {
+
+				var modules = ['misc'];
+
+				for(var module in modules) {
+
+					mod[modules[module]] = new ins[modules[module]]();
+
+					if(mod[modules[module]].setUp) mod[modules[module]].setUp();
+
+				}
+
+			},
+
+			checks: function() {
+
+				if(!self.is('input[type="text"]')) {
+
+					mod['misc'].report('warn', 'Please fire the plugin on an input[type="text"] element! - Shutting down... :(');
+					return false;
+					
+				}
+
+			}
+
+		}
+
+		ins.misc = function() {
+
+			var method = this;
+
+			method.report = function(type, message) {
+
+				if(console)	console[type]('['+ name +' '+ version +'] - ' + message);
 
 			}
 
