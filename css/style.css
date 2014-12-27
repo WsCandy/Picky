@@ -14,6 +14,43 @@ input {
   line-height: 18px; }
 
 body {
-  padding: 20px; }
+  padding: 20px;
+  font-family: 'Trebuchet MS'; }
+
+.field-wrap {
+  position: relative;
+  float: left;
+  width: 50%; }
+
+.picky {
+  width: 100%;
+  float: left; }
+  .picky__container {
+    width: 200px;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: #272725; }
+  .picky__table {
+    font-size: 12px; }
+    .picky__table--cell, .picky__table--heading {
+      color: #272725;
+      background: #e5e4e4;
+      text-align: center;
+      width: 8%;
+      padding: 3px 3px;
+      height: 26px; }
+    .picky__table--heading {
+      background: #47b5b3;
+      color: white; }
+    .picky__table--cell {
+      cursor: pointer; }
+      .picky__table--cell:hover, .picky__table--cell.active {
+        background: #47b5b3;
+        color: white; }
+      .picky__table--cell.disabled {
+        opacity: 0.4;
+        cursor: default;
+        background: #e5e4e4; }
 
 /*# sourceMappingURL=style.css.map */
