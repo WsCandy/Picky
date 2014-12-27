@@ -76,11 +76,20 @@
 
 				if(!setUp.checks()) return;
 
+				self.attr('readonly', true);
+				setUp.bindings();
+
+			},
+
+			bindings: function() {
+
+				self.on('click', mod['dates'].show);
+
 			},
 
 			defineModules: function() {
 
-				var modules = ['misc'];
+				var modules = ['misc', 'dates'];
 
 				for(var module in modules) {
 
@@ -101,6 +110,8 @@
 					
 				}
 
+				return true;
+
 			}
 
 		}
@@ -112,6 +123,18 @@
 			method.report = function(type, message) {
 
 				if(console)	console[type]('['+ name +' '+ version +'] - ' + message);
+
+			}
+
+		}
+
+		ins.dates = function() {
+
+			var method = this;
+
+			method.show = function() {
+
+				console.log('clicked');
 
 			}
 
