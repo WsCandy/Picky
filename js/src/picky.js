@@ -66,7 +66,11 @@
 
 	var picky_core = function(self, settings) {
 
-		var ins = this;
+		var ins = this,
+			container,
+			table,
+			cells,
+			today = new Date();
 
 		var setUp = {
 
@@ -76,20 +80,23 @@
 
 				if(!setUp.checks()) return;
 
-				self.attr('readonly', true);
+				mod['elements'].construct();
+
+
+				mod['dates'].populate(11, 2014);
 				setUp.bindings();
 
 			},
 
 			bindings: function() {
 
-				self.on('click', mod['dates'].show);
+				cells.on('click', mod['dates'].show);
 
 			},
 
 			defineModules: function() {
 
-				var modules = ['misc', 'dates'];
+				var modules = ['misc', 'dates', 'elements'];
 
 				for(var module in modules) {
 
@@ -118,9 +125,7 @@
 
 		ins.misc = function() {
 
-			var method = this;
-
-			method.report = function(type, message) {
+			this.report = function(type, message) {
 
 				if(console)	console[type]('['+ name +' '+ version +'] - ' + message);
 
@@ -130,13 +135,110 @@
 
 		ins.dates = function() {
 
-			var method = this;
+			this.show = function(month) {
 
-			method.show = function() {
-
-				console.log('clicked');
+				console.log($(this).data('date'));
 
 			}
+
+			this.getDays = function(month, year) {
+
+				month = month === undefined ? today.getMonth() : month;
+				year = year === undefined ? today.getFullYear() : year;
+
+				var date = new Date(year, month, 1),
+					days = [];
+
+				while(date.getMonth() === month) {
+
+					days.push(new Date(date));
+					date.setDate(date.getDate() + 1);
+
+				}
+
+				return days;
+
+			}
+
+			this.populate = function(month, year) {
+
+				var days = mod['dates'].getDays(month, year),
+					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
+					
+					cells = table.find('.picky__table--cell');
+					cells.addClass('disabled');
+
+				for(var i = 0; i < cells.length; i++) {
+
+					var cell = $(cells[i + firstDayOffset]);
+
+					if(days[i]) cell.removeClass('disabled');
+
+					if(!days[i]) continue;
+
+					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) cell.addClass('active');
+
+					cell.data('date', days[i]);
+					cell.text(days[i].getDate());
+
+				}
+
+			}
+
+		}
+
+		ins.elements = function() {
+
+			this.construct = function() {
+
+				self.attr('readonly', true);
+
+				mod['elements'].createContainer();
+				mod['elements'].createTable();
+
+			}
+
+			this.createContainer = function() {
+
+				container = $('<div />', {
+
+					'class' : 'picky__container'
+
+				}).appendTo(self.parent());				
+
+			}
+
+			this.createTable = function() {
+
+				table = $('<table />', {
+
+					'class' : 'picky__table'
+
+				}).appendTo(container);
+
+				for(var i = 0; i < 7; i++) {
+
+					mod['elements'].createRow(i);
+
+				}
+
+			}
+
+			this.createRow = function(rowIndex) {
+
+				var row = $('<tr />').appendTo(table);
+
+				for(var i = 0; i < 7; i++) {
+
+					$('<td />', {
+
+						'class' : 'picky__table--' + (rowIndex === 0 ? 'heading' : 'cell')
+
+					}).appendTo(row);
+
+				}
+
+			}			
 
 		}
 
