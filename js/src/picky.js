@@ -72,6 +72,14 @@
 			cells,
 			today = new Date();
 
+		var defaults = {
+
+			disablePast: true
+
+		}
+
+		var options = $.extend(defaults, settings);
+
 		var setUp = {
 
 			init: function() {
@@ -199,8 +207,9 @@
 				for(var i = 0; i < cells.length; i++) {
 
 					var cell = $(cells[i + firstDayOffset]),
-						yesterday = new Date();
-						yesterday.setDate(today.getDate() -1);
+						yesterday = options.disablePast === true ? new Date() : 0;
+
+					if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
 
 					if(days[i].getMonth() === month && days[i] > yesterday) {
 

@@ -1,5 +1,9 @@
 $(document).on('ready', function() {
 
-	$('.picky').picky();
+	$('.picky').picky({
+
+		disablePast: true
+
+	});
 
 });
