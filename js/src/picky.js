@@ -70,6 +70,7 @@
 			defaults = {
 
 			disablePast: true,
+			disable: [],
 			disableWeekdays : []
 
 		}
@@ -259,10 +260,14 @@
 
 				};
 
-				if(date['full'] >= new Date(options['disable'][0]) && date['full'] <= new Date(options['disable'][options['disable'][1] ? 1 : 0])) {
+				if(options['disable'].length > 0) {
 
-					cell.addClass('disabled');
+					if(date['full'] >= new Date(options['disable'][0]) && date['full'] <= new Date(options['disable'][options['disable'][1] ? 1 : 0])) {
 
+						cell.addClass('disabled');
+
+					}
+					
 				}
 
 				for(var i = 0; i < options['disableWeekdays'].length; i++) {
