@@ -67,18 +67,20 @@
 	var picky_core = function(self, settings) {
 
 		var ins = this,
-			container,
-			table,
-			cells,
-			today = new Date();
-
-		var defaults = {
+			defaults = {
 
 			disablePast: true
 
 		}
+		
+		var options = $.extend(defaults, settings),
+			container,
+			table,
+			cells,
+			today = new Date(),
+			yesterday = options.disablePast === true ? new Date() : 0;
 
-		var options = $.extend(defaults, settings);
+		if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
 
 		var setUp = {
 
@@ -158,9 +160,8 @@
 				var cell = $(this),
 					date = cell.data('date');
 
-				if(cell.hasClass('disabled')) return;
-
-				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
+				if(cell.hasClass('disabled')) mod['dates'].populate(date.getMonth(), date.getFullYear());
+				if(date > yesterday) self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
 			}
 
@@ -206,10 +207,7 @@
 
 				for(var i = 0; i < cells.length; i++) {
 
-					var cell = $(cells[i + firstDayOffset]),
-						yesterday = options.disablePast === true ? new Date() : 0;
-
-					if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
+					var cell = $(cells[i + firstDayOffset]);
 
 					if(days[i].getMonth() === month && days[i] > yesterday) {
 
