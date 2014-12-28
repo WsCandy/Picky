@@ -26,7 +26,7 @@ body {
   width: 100%;
   float: left; }
   .picky__container {
-    width: 200px;
+    width: 196px;
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
@@ -37,11 +37,11 @@ body {
     .picky__table--cell, .picky__table--heading {
       color: white;
       text-align: center;
-      width: 8%;
+      width: 28px;
       padding: 3px 3px;
-      height: 26px; }
+      height: 25px; }
     .picky__table--heading {
-      color: #272725; }
+      color: #47b5b3; }
     .picky__table--cell {
       cursor: pointer; }
       .picky__table--cell:hover, .picky__table--cell.active {
