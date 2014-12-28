@@ -137,7 +137,12 @@
 
 			this.show = function(month) {
 
-				console.log($(this).data('date'));
+				var cell = $(this),
+					date = cell.data('date');
+
+				if(cell.hasClass('disabled')) return;
+
+				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
 			}
 
@@ -253,15 +258,22 @@
 
 			this.createRow = function(rowIndex) {
 
-				var row = $('<tr />').appendTo(table);
+				var row = $('<tr />').appendTo(table),
+					days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
 				for(var i = 0; i < 7; i++) {
 
-					$('<td />', {
+					var cell = $('<td />', {
 
 						'class' : 'picky__table--' + (rowIndex === 0 ? 'heading' : 'cell')
 
 					}).appendTo(row);
+
+					if(rowIndex === 0) {
+
+						cell.text(days[i]);
+
+					}
 
 				}
 
