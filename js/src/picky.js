@@ -83,7 +83,7 @@
 				mod['elements'].construct();
 
 
-				mod['dates'].populate(0, 2015);
+				mod['dates'].populate();
 				setUp.bindings();
 
 			},
@@ -175,6 +175,7 @@
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
 					month = !month ? days[0].getMonth() : month;
+					year = year === undefined ? today.getFullYear() : year;
 					
 					cells = table.find('.picky__table--cell');
 					cells.addClass('disabled');
@@ -200,10 +201,12 @@
 
 					var cell = $(cells[i]);
 
-					days[i].setDate(days[i].getDate() - firstDayOffset);
+					days.push(new Date(year, month, 1));
 
-					cell.data('date', days[i]);
-					cell.text(days[i].getDate());
+					days[days.length - 1].setDate(days[i].getDate() - firstDayOffset);
+
+					cell.data('date', days[days.length - 1]);
+					cell.text(days[days.length - 1].getDate());
 
 				}
 
