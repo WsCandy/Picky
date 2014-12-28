@@ -69,7 +69,8 @@
 		var ins = this,
 			defaults = {
 
-			disablePast: true
+			disablePast: true,
+			disableWeekdays : []
 
 		}
 		
@@ -78,7 +79,8 @@
 			table,
 			cells,
 			today = new Date(),
-			yesterday = options.disablePast === true ? new Date() : 0;
+			yesterday = options.disablePast === true ? new Date() : 0,
+			currentMonth = 0;
 
 		if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
 
@@ -91,7 +93,7 @@
 				if(!setUp.checks()) return;
 
 				mod['elements'].construct();
-				mod['dates'].populate();
+				mod['dates'].populate(0, 2015);
 				setUp.bindings();
 
 			},
@@ -153,13 +155,25 @@
 
 		ins.dates = function() {
 
-			this.show = function(month) {
+			this.show = function() {
 
 				var cell = $(this),
 					date = cell.data('date');
 
-				if(cell.hasClass('disabled')) mod['dates'].populate(date.getMonth(), date.getFullYear());
-				if(date > yesterday) self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
+				if(date > yesterday) {
+
+					if(cell.hasClass('disabled') && date.getMonth() === currentMonth) return;
+
+				}
+				
+				if(cell.hasClass('disabled')) {
+
+					mod['dates'].populate(date.getMonth(), date.getFullYear());
+					return;
+
+				}
+				
+				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
 			}
 
@@ -198,6 +212,7 @@
 
 					month = !month ? days[0].getMonth() : month;
 					year = year === undefined ? today.getFullYear() : year;
+					currentMonth = month;
 					
 					cells = table.find('.picky__table--cell');
 					cells.addClass('disabled');
@@ -209,7 +224,7 @@
 
 					mod['dates'].activateDay({
 
-						day: days[i],
+						full: days[i],
 						month: month,
 						year: year
 
@@ -227,7 +242,6 @@
 					var cell = $(cells[i]);
 
 					days.push(new Date(year, month, 1));
-
 					days[days.length - 1].setDate(days[i].getDate() - firstDayOffset);
 
 					cell.data('date', days[days.length - 1]);
@@ -239,11 +253,27 @@
 
 			this.activateDay = function(date, cell) {
 
-				if(date['day'].getMonth() === date['month'] && date['day'] > yesterday) {
+				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) {
 
 					cell.removeClass('disabled');
 
 				};
+
+				if(date['full'] >= new Date(options['disable'][0]) && date['full'] <= new Date(options['disable'][options['disable'][1] ? 1 : 0])) {
+
+					cell.addClass('disabled');
+
+				}
+
+				for(var i = 0; i < options['disableWeekdays'].length; i++) {
+
+					if(date['full'].getDay() == options['disableWeekdays'][i]) {
+
+						cell.addClass('disabled');
+
+					}
+
+				}
 
 			}
 
