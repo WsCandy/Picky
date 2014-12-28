@@ -83,7 +83,7 @@
 				mod['elements'].construct();
 
 
-				mod['dates'].populate(11, 2014);
+				mod['dates'].populate(0, 2015);
 				setUp.bindings();
 
 			},
@@ -156,6 +156,15 @@
 
 				}
 
+				month = month == 11 ? 0 : month + 1;
+
+				while(date.getMonth() === month) {
+
+					days.push(new Date(date));
+					date.setDate(date.getDate() + 1);
+
+				}
+
 				return days;
 
 			}
@@ -164,6 +173,8 @@
 
 				var days = mod['dates'].getDays(month, year),
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
+
+					month = !month ? days[0].getMonth() : month;
 					
 					cells = table.find('.picky__table--cell');
 					cells.addClass('disabled');
@@ -172,11 +183,24 @@
 
 					var cell = $(cells[i + firstDayOffset]);
 
-					if(days[i]) cell.removeClass('disabled');
+					if(days[i].getMonth() === month) {
 
-					if(!days[i]) continue;
+						cell.removeClass('disabled');
+
+					};
 
 					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) cell.addClass('active');
+
+					cell.data('date', days[i]);
+					cell.text(days[i].getDate());
+
+				}
+
+				for(var i = firstDayOffset -1; i >= 0; i--) {
+
+					var cell = $(cells[i]);
+
+					days[i].setDate(days[i].getDate() - firstDayOffset);
 
 					cell.data('date', days[i]);
 					cell.text(days[i].getDate());
