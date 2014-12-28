@@ -91,8 +91,6 @@
 				if(!setUp.checks()) return;
 
 				mod['elements'].construct();
-
-
 				mod['dates'].populate();
 				setUp.bindings();
 
@@ -209,11 +207,13 @@
 
 					var cell = $(cells[i + firstDayOffset]);
 
-					if(days[i].getMonth() === month && days[i] > yesterday) {
+					mod['dates'].activateDay({
 
-						cell.removeClass('disabled');
+						day: days[i],
+						month: month,
+						year: year
 
-					};
+					}, cell);
 
 					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) cell.addClass('active');
 
@@ -234,6 +234,16 @@
 					cell.text(days[days.length - 1].getDate());
 
 				}
+
+			}
+
+			this.activateDay = function(date, cell) {
+
+				if(date['day'].getMonth() === date['month'] && date['day'] > yesterday) {
+
+					cell.removeClass('disabled');
+
+				};
 
 			}
 
