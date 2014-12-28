@@ -123,6 +123,16 @@
 
 		}
 
+		ins.publicF = {
+
+			getMonth : function(date) {
+
+				mod['dates'].populate(date[0], date[1]);
+
+			}
+
+		}
+
 		ins.misc = function() {
 
 			this.report = function(type, message) {
@@ -184,12 +194,15 @@
 					
 					cells = table.find('.picky__table--cell');
 					cells.addClass('disabled');
+					cells.removeClass('active');
 
 				for(var i = 0; i < cells.length; i++) {
 
-					var cell = $(cells[i + firstDayOffset]);
+					var cell = $(cells[i + firstDayOffset]),
+						yesterday = new Date();
+						yesterday.setDate(today.getDate() -1);
 
-					if(days[i].getMonth() === month) {
+					if(days[i].getMonth() === month && days[i] > yesterday) {
 
 						cell.removeClass('disabled');
 
