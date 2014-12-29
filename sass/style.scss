@@ -56,7 +56,18 @@ body {
 		right: 0;
 
 		background: #272725;
-		padding: 2px;
+
+	}
+
+	&__header {
+
+		text-align: center;
+		margin-bottom: 5px;
+		background: #47b5b3;
+		color: white;
+		font-weight: bold;
+		font-size: 14px;
+		line-height: 30px;
 
 	}
 
@@ -90,7 +101,7 @@ body {
 				color: #47b5b3;
 
 			}
-			
+
 			&:hover {
 
 				background: #47b5b3;

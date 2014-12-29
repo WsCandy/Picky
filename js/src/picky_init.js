@@ -6,7 +6,7 @@ $(document).on('ready', function() {
 		disablePast: true,
 		disableDays: [],
 		labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-		advance: 0
+		advance: 3
 
 	});
 

@@ -73,12 +73,14 @@
 			disable: [],
 			disableDays: [],
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0
 
 		}
 		
 		var options = $.extend(defaults, settings),
 			container,
+			header,
 			table,
 			cells,
 			today = new Date(),
@@ -224,6 +226,8 @@
 				cells.addClass('disabled');
 				cells.removeClass('active');
 
+				header.text(options['monthNames'][days[0].getMonth()] + ' ' + days[0].getFullYear());
+
 				for(var i = 0; i < cells.length; i++) {
 
 					var cell = $(cells[i + firstDayOffset]);
@@ -300,6 +304,7 @@
 				self.attr('readonly', true);
 
 				mod['elements'].createContainer();
+				mod['elements'].createHeader();
 				mod['elements'].createTable();
 
 			}
@@ -311,6 +316,18 @@
 					'class' : 'picky__container'
 
 				}).appendTo(self.parent());				
+
+			}
+
+			this.createHeader = function() {
+
+				header = $('<p />', {
+
+					'class' : 'picky__header'
+
+				}).prependTo(container);
+
+				header.text(options['monthNames'][today.getMonth()] + ' ' + today.getFullYear());
 
 			}
 

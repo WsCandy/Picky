@@ -30,8 +30,15 @@ body {
     position: absolute;
     top: calc(100% + 10px);
     right: 0;
-    background: #272725;
-    padding: 2px; }
+    background: #272725; }
+  .picky__header {
+    text-align: center;
+    margin-bottom: 5px;
+    background: #47b5b3;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 30px; }
   .picky__table {
     font-size: 12px; }
     .picky__table--cell, .picky__table--heading {
