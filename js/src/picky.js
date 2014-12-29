@@ -305,6 +305,7 @@
 
 				mod['elements'].createContainer();
 				mod['elements'].createHeader();
+				mod['elements'].createNav();
 				mod['elements'].createTable();
 
 			}
@@ -316,6 +317,21 @@
 					'class' : 'picky__container'
 
 				}).appendTo(self.parent());				
+
+			}
+
+			this.createNav = function() {
+
+				for(var i = 0; i < 2; i++) {
+
+					$('<a />', {
+
+						'class' : 'picky__nav picky__nav' + (i == 0 ? '--prev' : '--next'),
+						'href' : 'javascript:void(0)'
+
+					}).prependTo(container);
+
+				}
 
 			}
 
