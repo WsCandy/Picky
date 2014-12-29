@@ -49,13 +49,13 @@ body {
 
 	}
 
-	50% {
+	30% {
 
 		-webkit-transform: perspective(1000px) rotateX(70deg) translateY(0%);
 
 	}
 
-	80% {
+	65% {
 
 		-webkit-transform: perspective(1000px) rotateX(-20deg) translateY(0%);
 
@@ -63,7 +63,7 @@ body {
 
 	90% {
 
-		-webkit-transform: perspective(1000px) rotateX(15deg) translateY(0%);
+		-webkit-transform: perspective(1000px) rotateX(10deg) translateY(0%);
 
 	}
 
@@ -97,7 +97,7 @@ body {
 
 		&.active {
 
-			-webkit-animation: showCal 1.15s linear;
+			-webkit-animation: showCal 1s linear;
 			-webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
 			display: block;
 

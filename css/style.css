@@ -26,14 +26,14 @@ body {
   0% {
     -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%); }
 
-  50% {
+  30% {
     -webkit-transform: perspective(1000px) rotateX(70deg) translateY(0%); }
 
-  80% {
+  65% {
     -webkit-transform: perspective(1000px) rotateX(-20deg) translateY(0%); }
 
   90% {
-    -webkit-transform: perspective(1000px) rotateX(15deg) translateY(0%); }
+    -webkit-transform: perspective(1000px) rotateX(10deg) translateY(0%); }
 
   100% {
     -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%); } }
@@ -51,7 +51,7 @@ body {
     -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
     display: none; }
     .picky__container.active {
-      -webkit-animation: showCal 1.15s linear;
+      -webkit-animation: showCal 1s linear;
       -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
       display: block; }
   .picky__header {
