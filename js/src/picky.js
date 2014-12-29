@@ -82,10 +82,13 @@
 			table,
 			cells,
 			today = new Date(),
-			yesterday = options.disablePast === true ? new Date() : 0,
 			currentMonth = 0;
 
-		if(typeof yesterday === 'object') yesterday.setDate((today.getDate() -1) + options['advance']);
+		today.setDate(today.getDate() + options['advance']);
+
+		var yesterday = options['disablePast'] === true ? new Date(today.getTime()) : 0;
+
+		if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
 
 		var setUp = {
 
@@ -213,13 +216,13 @@
 				var days = mod['dates'].getDays(month, year),
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
-					month = !month ? days[0].getMonth() : month;
-					year = year === undefined ? today.getFullYear() : year;
-					currentMonth = month;
-					
-					cells = table.find('.picky__table--cell');
-					cells.addClass('disabled');
-					cells.removeClass('active');
+				month = !month ? days[0].getMonth() : month;
+				year = year === undefined ? today.getFullYear() : year;
+				currentMonth = month;
+				
+				cells = table.find('.picky__table--cell');
+				cells.addClass('disabled');
+				cells.removeClass('active');
 
 				for(var i = 0; i < cells.length; i++) {
 
