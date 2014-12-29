@@ -93,11 +93,13 @@ body {
 		background: #272725;
 
 		-webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
+		display: none;
 
 		&.active {
 
 			-webkit-animation: showCal 1.15s linear;
 			-webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
+			display: block;
 
 		}
 

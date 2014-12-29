@@ -48,10 +48,12 @@ body {
     z-index: -1;
     -webkit-transform-origin: top center;
     background: #272725;
-    -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%); }
+    -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
+    display: none; }
     .picky__container.active {
       -webkit-animation: showCal 1.15s linear;
-      -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%); }
+      -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
+      display: block; }
   .picky__header {
     text-align: center;
     margin-bottom: 5px;
