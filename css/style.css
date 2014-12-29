@@ -22,15 +22,36 @@ body {
   float: left;
   width: 50%; }
 
+@-webkit-keyframes showCal {
+  0% {
+    -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%); }
+
+  50% {
+    -webkit-transform: perspective(1000px) rotateX(70deg) translateY(0%); }
+
+  80% {
+    -webkit-transform: perspective(1000px) rotateX(-20deg) translateY(0%); }
+
+  90% {
+    -webkit-transform: perspective(1000px) rotateX(15deg) translateY(0%); }
+
+  100% {
+    -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%); } }
 .picky {
   width: 100%;
   float: left; }
   .picky__container {
     width: 196px;
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100%);
     right: 0;
-    background: #272725; }
+    z-index: -1;
+    -webkit-transform-origin: top center;
+    background: #272725;
+    -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%); }
+    .picky__container.active {
+      -webkit-animation: showCal 1.15s linear;
+      -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%); }
   .picky__header {
     text-align: center;
     margin-bottom: 5px;

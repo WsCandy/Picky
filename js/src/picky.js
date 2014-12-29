@@ -192,6 +192,8 @@
 				
 				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
+				container.removeClass('active');
+
 			}
 
 			this.getDays = function(month, year) {
