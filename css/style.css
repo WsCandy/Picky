@@ -44,7 +44,9 @@ body {
       color: #47b5b3; }
     .picky__table--cell {
       cursor: pointer; }
-      .picky__table--cell:hover, .picky__table--cell.active {
+      .picky__table--cell.active {
+        color: #47b5b3; }
+      .picky__table--cell:hover {
         background: #47b5b3;
         color: white;
         border-radius: 50%; }

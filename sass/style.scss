@@ -85,7 +85,13 @@ body {
 
 			cursor: pointer;
 
-			&:hover, &.active {
+			&.active {
+
+				color: #47b5b3;
+
+			}
+			
+			&:hover {
 
 				background: #47b5b3;
 				color: white;
