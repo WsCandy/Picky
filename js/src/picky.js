@@ -71,7 +71,8 @@
 
 			disablePast: true,
 			disable: [],
-			disableWeekdays : []
+			disableWeekdays: [],
+			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 
 		}
 		
@@ -327,8 +328,7 @@
 
 			this.createRow = function(rowIndex) {
 
-				var row = $('<tr />').appendTo(table),
-					days = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+				var row = $('<tr />').appendTo(table);
 
 				for(var i = 0; i < 7; i++) {
 
@@ -340,7 +340,7 @@
 
 					if(rowIndex === 0) {
 
-						cell.text(days[i]);
+						cell.text(options['labels'][i]);
 
 					}
 
