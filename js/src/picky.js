@@ -81,6 +81,7 @@
 		var options = $.extend(defaults, settings),
 			container,
 			header,
+			nav,
 			table,
 			cells,
 			today = new Date(),
@@ -108,9 +109,9 @@
 
 			bindings: function() {
 
-				cells.on('click', mod['dates'].show);
-
-				$('.picky__nav').on('click', mod['dates'].navigate);
+				self.on('click', mod['dates'].show)
+				cells.on('click', mod['dates'].fillOut);
+				nav.on('click', mod['dates'].navigate);
 
 			},
 
@@ -166,6 +167,12 @@
 		ins.dates = function() {
 
 			this.show = function() {
+
+				container.addClass('active');
+
+			}
+
+			this.fillOut = function() {
 
 				var cell = $(this),
 					date = cell.data('date');
@@ -357,6 +364,8 @@
 					}).prependTo(container);
 
 				}
+
+				nav = $('.picky__nav');
 
 			}
 
