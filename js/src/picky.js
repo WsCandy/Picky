@@ -262,9 +262,13 @@
 
 				if(options['disable'].length > 0) {
 
-					if(date['full'] >= new Date(options['disable'][0]) && date['full'] <= new Date(options['disable'][options['disable'][1] ? 1 : 0])) {
+					for(var i = 0; i < options['disable'].length; i++) {
 
-						cell.addClass('disabled');
+						if(date['full'] >= new Date(options['disable'][(i % 2 === 0 ? i : i -1)]) && date['full'] <= new Date(options['disable'][i])) {
+
+							cell.addClass('disabled');
+
+						}
 
 					}
 					
