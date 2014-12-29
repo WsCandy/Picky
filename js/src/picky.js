@@ -71,8 +71,9 @@
 
 			disablePast: true,
 			disable: [],
-			disableWeekdays: [],
-			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+			disableDays: [],
+			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+			advance: 0
 
 		}
 		
@@ -84,7 +85,7 @@
 			yesterday = options.disablePast === true ? new Date() : 0,
 			currentMonth = 0;
 
-		if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
+		if(typeof yesterday === 'object') yesterday.setDate((today.getDate() -1) + options['advance']);
 
 		var setUp = {
 
@@ -95,7 +96,7 @@
 				if(!setUp.checks()) return;
 
 				mod['elements'].construct();
-				mod['dates'].populate(0, 2015);
+				mod['dates'].populate();
 				setUp.bindings();
 
 			},
@@ -275,9 +276,9 @@
 					
 				}
 
-				for(var i = 0; i < options['disableWeekdays'].length; i++) {
+				for(var i = 0; i < options['disableDays'].length; i++) {
 
-					if(date['full'].getDay() == options['disableWeekdays'][i]) {
+					if(date['full'].getDay() == options['disableDays'][i]) {
 
 						cell.addClass('disabled');
 
