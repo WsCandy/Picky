@@ -71,6 +71,56 @@ body {
 
 	}
 
+	&__nav {
+
+		display: block;
+		position: absolute;
+		height: 18px;
+		width: 18px;
+
+		background: #272725;
+		top: 6px;
+		border-radius: 50%;
+
+		&--next {
+
+			right: 6px;
+
+			&:after {
+
+				content: '';
+				position: absolute;
+				top: 5px;
+				left: 8px;
+
+				border-left: 4px solid white;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+
+			}
+
+		}
+
+		&--prev {
+
+			left: 6px;
+
+			&:after {
+
+				content: '';
+				position: absolute;
+				top: 5px;
+				right: 8px;
+
+				border-right: 4px solid white;
+				border-top: 4px solid transparent;
+				border-bottom: 4px solid transparent;
+
+			}
+
+		}
+	}
+
 	&__table {
 
 		font-size: 12px;
@@ -82,7 +132,7 @@ body {
 			text-align: center;
 			width: 28px;
 			padding: 3px 3px;
-			height: 25px;
+			height: 26px;
 
 		}
 

@@ -110,6 +110,8 @@
 
 				cells.on('click', mod['dates'].show);
 
+				$('.picky__nav').on('click', mod['dates'].navigate);
+
 			},
 
 			defineModules: function() {
@@ -170,7 +172,7 @@
 
 				if(date > yesterday) {
 
-					if(cell.hasClass('disabled') && date.getMonth() === currentMonth) return;
+					if(cell.hasClass('disabled') && date.getMonth() === currentMonth.getMonth()) return;
 
 				}
 				
@@ -220,7 +222,7 @@
 
 				month = !month ? days[0].getMonth() : month;
 				year = year === undefined ? today.getFullYear() : year;
-				currentMonth = month;
+				currentMonth = new Date(days[0].getTime());
 				
 				cells = table.find('.picky__table--cell');
 				cells.addClass('disabled');
@@ -259,6 +261,8 @@
 
 				}
 
+				mod['dates'].setNav();
+
 			}
 
 			this.activateDay = function(date, cell) {
@@ -292,6 +296,27 @@
 					}
 
 				}
+
+			}
+
+			this.setNav = function() {
+
+				var next = new Date(currentMonth.getTime()),
+					prev = new Date(currentMonth.getTime());
+
+				next.setMonth(next.getMonth() + 1);
+				prev.setMonth(prev.getMonth() - 1);
+
+				$('.picky__nav--next').data('date', next);
+				$('.picky__nav--prev').data('date', prev);
+
+			}
+
+			this.navigate = function() {
+
+				var date = $(this).data('date');
+
+				mod['dates'].populate(date.getMonth(), date.getFullYear());
 
 			}
 

@@ -39,6 +39,34 @@ body {
     font-weight: bold;
     font-size: 14px;
     line-height: 30px; }
+  .picky__nav {
+    display: block;
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    background: #272725;
+    top: 6px;
+    border-radius: 50%; }
+    .picky__nav--next {
+      right: 6px; }
+      .picky__nav--next:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 8px;
+        border-left: 4px solid white;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent; }
+    .picky__nav--prev {
+      left: 6px; }
+      .picky__nav--prev:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        right: 8px;
+        border-right: 4px solid white;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent; }
   .picky__table {
     font-size: 12px; }
     .picky__table--cell, .picky__table--heading {
@@ -46,7 +74,7 @@ body {
       text-align: center;
       width: 28px;
       padding: 3px 3px;
-      height: 25px; }
+      height: 26px; }
     .picky__table--heading {
       color: #47b5b3; }
     .picky__table--cell {
