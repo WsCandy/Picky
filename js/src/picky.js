@@ -76,16 +76,10 @@
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0
 
-		}
-		
-		var options = $.extend(defaults, settings),
-			container,
-			header,
-			nav,
-			table,
-			cells,
-			today = new Date(),
-			currentMonth = 0;
+		},
+		options = $.extend(defaults, settings), container, header, nav, table, cells,
+		today = new Date(),
+		currentMonth = 0;
 
 		today.setDate(today.getDate() + options['advance']);
 
@@ -123,8 +117,6 @@
 
 					mod[modules[module]] = new ins[modules[module]]();
 
-					if(mod[modules[module]].setUp) mod[modules[module]].setUp();
-
 				}
 
 			},
@@ -158,7 +150,7 @@
 
 			this.report = function(type, message) {
 
-				if(console)	console[type]('['+ name +' '+ version +'] - ' + message);
+				if(console) console[type]('['+ name +' '+ version +'] - ' + message);
 
 			}
 
@@ -211,9 +203,7 @@
 
 				}
 
-				month = month == 11 ? 0 : month + 1;
-
-				while(date.getMonth() === month) {
+				while(date.getMonth() === (month == 11 ? 0 : month + 1)) {
 
 					days.push(new Date(date));
 					date.setDate(date.getDate() + 1);
@@ -276,21 +266,12 @@
 
 			this.activateDay = function(date, cell) {
 
-				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) {
-
-					cell.removeClass('disabled');
-
-				};
-
+				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) cell.removeClass('disabled');
 				if(options['disable'].length > 0) {
 
 					for(var i = 0; i < options['disable'].length; i++) {
 
-						if(date['full'] >= new Date(options['disable'][(i % 2 === 0 ? i : i -1)]) && date['full'] <= new Date(options['disable'][i])) {
-
-							cell.addClass('disabled');
-
-						}
+						if(date['full'] >= new Date(options['disable'][(i % 2 === 0 ? i : i -1)]) && date['full'] <= new Date(options['disable'][i])) cell.addClass('disabled');
 
 					}
 					
@@ -298,11 +279,7 @@
 
 				for(var i = 0; i < options['disableDays'].length; i++) {
 
-					if(date['full'].getDay() == options['disableDays'][i]) {
-
-						cell.addClass('disabled');
-
-					}
+					if(date['full'].getDay() == options['disableDays'][i]) cell.addClass('disabled');
 
 				}
 
@@ -411,11 +388,7 @@
 
 					}).appendTo(row);
 
-					if(rowIndex === 0) {
-
-						cell.text(options['labels'][i]);
-
-					}
+					if(rowIndex === 0) cell.text(options['labels'][i]);
 
 				}
 

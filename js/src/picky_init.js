@@ -2,7 +2,7 @@ $(document).on('ready', function() {
 
 	$('.picky').picky({
 
-		disable: ['2015-01-10', '2015-01-15'],
+		disable: ['2015-01-08'],
 		disablePast: true,
 		disableDays: [],
 		labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
