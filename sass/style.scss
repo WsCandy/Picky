@@ -83,14 +83,14 @@ body {
 
 	&__container {
 
-		width: 196px;
+		width: 275px;
 		position: absolute;
 		top: calc(100%);
 		right: 0;
 		z-index: -1;
 		-webkit-transform-origin: top center;
 
-		background: #272725;
+		background: #181818;
 
 		-webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
 		display: none;
@@ -108,12 +108,11 @@ body {
 	&__header {
 
 		text-align: center;
-		margin-bottom: 5px;
-		background: #47b5b3;
-		color: white;
+		color: #47b5b3;
+		text-transform: uppercase;
 		font-weight: bold;
 		font-size: 14px;
-		line-height: 30px;
+		line-height: 40px;
 
 	}
 
@@ -124,13 +123,12 @@ body {
 		height: 18px;
 		width: 18px;
 
-		background: #272725;
-		top: 6px;
+		top: 9px;
 		border-radius: 50%;
 
 		&--next {
 
-			right: 6px;
+			right: 9px;
 
 			&:after {
 
@@ -139,9 +137,9 @@ body {
 				top: 5px;
 				left: 8px;
 
-				border-left: 4px solid white;
-				border-top: 4px solid transparent;
-				border-bottom: 4px solid transparent;
+				border-left: 6px solid white;
+				border-top: 6px solid transparent;
+				border-bottom: 6px solid transparent;
 
 			}
 
@@ -149,7 +147,7 @@ body {
 
 		&--prev {
 
-			left: 6px;
+			left: 9px;
 
 			&:after {
 
@@ -158,9 +156,9 @@ body {
 				top: 5px;
 				right: 8px;
 
-				border-right: 4px solid white;
-				border-top: 4px solid transparent;
-				border-bottom: 4px solid transparent;
+				border-right: 6px solid #e5e4e4;
+				border-top: 6px solid transparent;
+				border-bottom: 6px solid transparent;
 
 			}
 
@@ -170,21 +168,26 @@ body {
 	&__table {
 
 		font-size: 12px;
+		width: 100%;
+		border-collapse: collapse;
+		table-layout: fixed;
 
 		&--cell, &--heading {
 
-			color: white;
-
+			color: #e5e4e4;
+			padding: 11px 0;
 			text-align: center;
-			width: 28px;
-			padding: 3px 3px;
-			height: 26px;
+			vertical-align: center;
+			border: 1px solid #272725;
 
 		}
 
 		&--heading {
 
 			color: #47b5b3;
+			text-transform: uppercase;
+			font-weight: bold;
+			background: #272725;
 
 		}
 
@@ -194,23 +197,21 @@ body {
 
 			&.active {
 
-				color: #47b5b3;
+				background: #47b5b3;
 
 			}
 
 			&:hover {
 
 				background: #47b5b3;
-				color: white;
-				border-radius: 50%;
 
 			}
 
 			&.disabled {
 
-				opacity: 0.2;
 				cursor: default;
-				background: none;
+				background: #272725;
+				color: #515150;
 
 			}
 

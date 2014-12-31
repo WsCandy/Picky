@@ -5,8 +5,8 @@ $(document).on('ready', function() {
 		disable: ['2015-01-08'],
 		disablePast: true,
 		disableDays: [],
-		labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-		advance: 3
+		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+		advance: 0
 
 	});
 
