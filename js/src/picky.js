@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.0a',
+	var version = '1.0.0',
 		name = 'Picky',
 		mod = {};
 
