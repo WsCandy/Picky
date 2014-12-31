@@ -3,7 +3,7 @@ Picky - v1.0.0
 
 #####7.7kb, (4.4kb min)
 
-A lightweight jQuery plug in that create a date picker on any input[type="text"]. Picky has a wide range of options to disable specific dates and change the appearance.
+A lightweight jQuery plug in that creates a date picker on any input[type="text"]. Picky has a wide range of options to disable specific dates and change the appearance.
 
 Initialisation
 ---
