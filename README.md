@@ -1,4 +1,4 @@
-Picky
+Picky - v1.0.0
 =====
 
 A lightweight jQuery plug in that create a date picker on any input[type="text"]. Picky has a wide range of options to disable specific dates and change the appearance.
@@ -60,4 +60,4 @@ Currently picky has one public method it is as follows:
 
 This will jump to the specified month, in this example January 2016. The months range from 0 - 11, with 0 being January.
 
-I plan to add callbacks at sometime in the near future, it'll come in a future update!
+I plan to add callbacks at sometime in the near future, it'll come in a future update!g
