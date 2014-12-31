@@ -62,4 +62,4 @@ Currently picky has one public method it is as follows:
 
 This will jump to the specified month, in this example January 2016. The months range from 0 - 11, with 0 being January.
 
-I plan to add callbacks at sometime in the near future, it'll come in a future update!g
+I plan to add callbacks at sometime in the near future, it'll come in a future update!
