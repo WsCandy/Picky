@@ -6,7 +6,12 @@ $(document).on('ready', function() {
 		disablePast: true,
 		disableDays: [],
 		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-		advance: 0
+		advance: 0,
+		select_callback: function(input, cell, date) {
+
+			console.log(input, cell, date);
+
+		}
 
 	});
 

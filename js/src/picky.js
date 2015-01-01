@@ -75,7 +75,8 @@
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0,
-			startDay: null
+			startDay: null,
+			select_callback: null
 
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
@@ -195,6 +196,8 @@
 				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
 				container.removeClass('active');
+				
+				if(typeof options['select_callback'] === 'function') options['select_callback'](self, cell, date);
 
 			}
 
