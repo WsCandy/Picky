@@ -3,8 +3,7 @@
 	'use strict';
 
 	var version = '1.0.0',
-		name = 'Picky',
-		mod = {};
+		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
 		
@@ -67,6 +66,7 @@
 	var picky_core = function(self, settings) {
 
 		var ins = this,
+			mod = {},
 			defaults = {
 
 			disablePast: true,
@@ -76,7 +76,8 @@
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0,
 			startDay: null,
-			select_callback: null
+			select_callback: null,
+			linked: null
 
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
@@ -199,6 +200,13 @@
 				
 				if(typeof options['select_callback'] === 'function') options['select_callback'](self, cell, date);
 
+				if(typeof options['linked'] === 'object' && options['linked'].size() > 0 && options['linked'].data('ins') !== ins) {
+
+					date.setDate(date.getDate() + 1);
+					options['linked'].picky('setStart', date);
+					
+				}
+
 			}
 
 			this.getDays = function(month, year) {
@@ -314,8 +322,8 @@
 				next.setMonth(next.getMonth() + 1);
 				prev.setMonth(prev.getMonth() - 1);
 
-				$('.picky__nav--next').data('date', next);
-				$('.picky__nav--prev').data('date', prev);
+				container.find('.picky__nav--next').data('date', next);
+				container.find('.picky__nav--prev').data('date', prev);
 
 			}
 
@@ -365,7 +373,7 @@
 
 				}
 
-				nav = $('.picky__nav');
+				nav = container.find('.picky__nav');
 
 			}
 
