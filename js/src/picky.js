@@ -74,11 +74,12 @@
 			disableDays: [],
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-			advance: 0
+			advance: 0,
+			startDay: null
 
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
-		today = new Date(),
+		today = options.startDay ? new Date(options.startDay) : new Date(),
 		currentMonth = 0;
 
 		today.setDate(today.getDate() + options['advance']);
@@ -280,7 +281,7 @@
 							cell.addClass('disabled');
 
 						}
-						
+
 					}
 					
 				}
