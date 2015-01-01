@@ -11,7 +11,8 @@ $(document).on('ready', function() {
 
 			console.log(input, cell, date);
 
-		}
+		},
+		linked: $('.picky2')
 
 	});
 
