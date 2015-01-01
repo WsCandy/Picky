@@ -20,7 +20,8 @@ body {
 .field-wrap {
   position: relative;
   float: left;
-  width: 50%; }
+  width: 48%;
+  margin-right: 2%; }
 
 @-webkit-keyframes showCal {
   0% {
