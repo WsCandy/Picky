@@ -22,7 +22,8 @@ Here's a list of all the options with their default values:
 	disableDays: [],
 	labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 	monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-	advance: 0
+	advance: 0,
+	startDay: null
 
 All of the options are self explanatory, I'll go into more detail about disabling specific dates below!
 
@@ -54,6 +55,10 @@ Disable Days will disable specific days of the week, 0 is Sunday and 6 is Saturd
 	advance: 2
 
 The advance option will not let you set the date that is anything before x amount of days after today. Using the above example, if today were 1st January 2015, you would not be able to book anything before 3rd January 2015.
+
+	startDay: '2015-01-01'
+
+Specify a date where you would like the calendar start from
 
 Public Methods
 ---
