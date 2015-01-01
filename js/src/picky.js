@@ -271,8 +271,16 @@
 
 					for(var i = 0; i < options['disable'].length; i++) {
 
-						if(date['full'] >= new Date(options['disable'][(i % 2 === 0 ? i : i -1)]) && date['full'] <= new Date(options['disable'][i])) cell.addClass('disabled');
+						if(typeof options['disable'][i] === 'string' && date['full'] >= new Date(options['disable'][i]) && date['full'] <= new Date(options['disable'][i])) {
 
+							cell.addClass('disabled');
+
+						} else if(typeof options['disable'][i] === 'object' && date['full'] >= new Date(options['disable'][i][0]) && date['full'] <= new Date(options['disable'][i][1])) {
+
+							cell.addClass('disabled');
+
+						}
+						
 					}
 					
 				}
