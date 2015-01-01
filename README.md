@@ -35,13 +35,15 @@ There are numerous ways to disable specific dates with Picky, I'll explain each 
 
 Disable all the dates before today's date.
 
-	disable: ['2015-01-08', '2015-01-15', '2015-01-20']
+	disable: ['2015-01-08', ['2015-01-16', '2015-01-18'], '2015-01-14']
 
-Disable accepts an array of dates to disable, this can handle an unlimited amount of dates so feel free to add as many as you like. The above example will disable 8th Jan 2015 - 15th Jan 2015 and then disable the 20th Jan 2015. 
+Disable accepts an array of dates to disable, this can handle an unlimited amount of dates so feel free to add as many as you like. The above example will disable 8th Jan 2015  and then 16th Jan 2015 to 18th Jan 2015 and then disable the 14th Jan 2015. 
+
+Passing an array through to the option will disable the dates between the two you specify.
 
 To disable multiple single days simply do the following: 
 
-	disable: ['2015-01-08', '2015-01-08', '2015-01-20', '2015-01-20', '2015-01-25', '2015-01-25']
+	disable: ['2015-01-08', '2015-01-20', '2015-01-25']
 
 The disable option works in pairs and will disable the dates between the odd and even iterations of the array. If you specify one date so the array's length === 1 then it'll just disable that specific day.
 
