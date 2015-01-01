@@ -73,4 +73,15 @@ This will jump to the specified month, in this example January 2016. The months 
 
 Set start will set the start of the date picker to be the date you specified, this method is useful if you want to pair date pickers, as it will allow you to use the date entered from the first to determine where the second one starts.
 
-I plan to add callbacks at sometime in the near future, it'll come in a future update!
+Callbacks
+---
+
+The following callback will fire when you select a date in the calendar:
+
+	select_callback: function(input, cell, date) {
+
+		console.log(input, cell, date);
+
+	}
+
+Various data is provided, the date parameter that is passed is a JavaScript date object and can be manipulated as you like!
