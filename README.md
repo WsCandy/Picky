@@ -63,10 +63,14 @@ Specify a date where you would like the calendar start from
 Public Methods
 ---
 
-Currently picky has one public method it is as follows:
+Currently picky has two public methods they are as follows:
 
 	$('.picky').picky('getMonth', [0, 2016])
 
 This will jump to the specified month, in this example January 2016. The months range from 0 - 11, with 0 being January.
+
+	$('.picky').picky('setStart', '2015-04-13');
+
+Set start will set the start of the date picker to be the date you specified, this method is useful if you want to pair date pickers, as it will allow you to use the date entered from the first to determine where the second one starts.
 
 I plan to add callbacks at sometime in the near future, it'll come in a future update!
