@@ -139,10 +139,19 @@
 
 		ins.publicF = {
 
-			getMonth : function(date) {
+			getMonth: function(date) {
 
 				mod['dates'].populate(date[0], date[1]);
 
+			},
+
+			setStart: function(date) {
+
+				today = new Date(date);
+				yesterday = options['disablePast'] === true ? new Date(today.getTime()) : 0;
+				if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
+				
+				mod['dates'].populate(today.getMonth(), today.getFullYear());
 			}
 
 		}
