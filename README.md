@@ -1,9 +1,9 @@
-Picky - v1.1.1
+Picky - v1.1.2
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.1.1 Update
+1.1.2 Update
 ---
 
 Fixed some minor bugs with the linking functionality.
