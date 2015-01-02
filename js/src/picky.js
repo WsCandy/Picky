@@ -202,8 +202,11 @@
 
 				if(typeof options['linked'] === 'object' && options['linked'].size() > 0 && options['linked'].data('ins') !== ins) {
 
-					date.setDate(date.getDate() + 1);
-					options['linked'].picky('setStart', date);
+					var startDate = new Date();
+						startDate.setDate(date.getDate() +1);
+
+					options['linked'].picky('setStart', startDate);
+					options['linked'].val('');
 					
 				}
 
