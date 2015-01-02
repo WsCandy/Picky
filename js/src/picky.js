@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.1.1',
+	var version = '1.1.2',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
@@ -202,7 +202,7 @@
 
 				if(typeof options['linked'] === 'object' && options['linked'].size() > 0 && options['linked'].data('ins') !== ins) {
 
-					var startDate = new Date();
+					var startDate = new Date(date);
 						startDate.setDate(date.getDate() +1);
 
 					options['linked'].picky('setStart', startDate);
