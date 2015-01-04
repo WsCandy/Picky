@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.1.2',
+	var version = '1.1.3',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
@@ -295,13 +295,18 @@
 
 					for(var i = 0; i < options['disable'].length; i++) {
 
-						if(typeof options['disable'][i] === 'string' && date['full'] >= new Date(options['disable'][i]) && date['full'] <= new Date(options['disable'][i])) {
+						if(typeof options['disable'][i] === 'string') {
 
-							cell.addClass('disabled');
+							var split = options['disable'][i].split('-', 3);
+							
+							if(date['full'] >= new Date(split[0], (split[1] -1), split[2]) && date['full'] <= new Date(split[0], (split[1] - 1), split[2])) cell.addClass('disabled');
 
-						} else if(typeof options['disable'][i] === 'object' && date['full'] >= new Date(options['disable'][i][0]) && date['full'] <= new Date(options['disable'][i][1])) {
+						} else if(typeof options['disable'][i] === 'object') {
 
-							cell.addClass('disabled');
+							var start = options['disable'][i][0].split('-', 3),
+								end =  options['disable'][i][1].split('-', 3);
+
+							if(date['full'] >= new Date(start[0], (start[1] -1), start[2]) && date['full'] <= new Date(end[0], (end[1] -1), end[2])) cell.addClass('disabled');
 
 						}
 
