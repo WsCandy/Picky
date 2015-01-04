@@ -1,12 +1,12 @@
-Picky - v1.1.2
+Picky - v1.1.3
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.1.2 Update
+1.1.3 Update
 ---
 
-Fixed some minor bugs with the linking functionality.
+Internet Explorer 5+ support integrated.
 
 #####Release History
 
