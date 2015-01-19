@@ -1,0 +1,49 @@
+{
+
+    "name": "zRS",
+    "authors": [
+   
+        "Samuel Woodbridge"
+
+    ],
+
+    "description": "jQuery Datepicker",
+    "main": "js/src/picky.js",
+    "repository": {
+
+        "type" : "git",
+        "url" : "https://github.com/WsCandy/Picky.git"
+
+    },
+
+    "keywords": [
+
+        "Datepicker",
+        "date",
+        "jQuery",
+        "Propeller",
+        "propcomm",
+        "propeller",
+        "propcom"
+
+    ],
+
+    "license": "Public",
+    "homepage": "https://github.com/WsCandy/Picky.git",
+
+    "ignore" : [
+
+        "/css/",
+        "/index.html"
+
+    ],
+
+    "install" : {
+
+        "js/src/picky.js" : "httpdocs/assets/js/lib",
+        "js/src/picky_init.js" : "httpdocs/assets/js/src",
+        "sass/picky.scss" : "httpdocs/assets/sass/modules"
+
+    }
+
+}
