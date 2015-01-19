@@ -1,12 +1,16 @@
-Picky - v1.1.3
+Picky - v1.2.0
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.1.3 Update
+1.2.0 Update
 ---
 
-Internet Explorer 5+ support integrated.
+bower/ppm install support added:
+
+	ppm install propcom-picky
+
+Simple!
 
 #####Release History
 
