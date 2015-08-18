@@ -1,12 +1,16 @@
-Picky - v1.2.1
+Picky - v1.3.0
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.2.1 Update
+1.3.0 Update
 ---
 
-Fixed the console error when there isn't a linked element.
+Added in a disableFuture option.
+
+disableFuture accepts two different values, you can pass it "true" to disable all future dates, or you can past it a number to disable after x amount of days in the future, for example a restaurant that only accepts bookings 10 days in advance.
+
+	disableFuture: true/false/number
 
 #####Release History
 
@@ -25,6 +29,7 @@ Options
 Here's a list of all the options with their default values:
 
 	disablePast: true,
+	disableFuture: 10 / true
 	disable: [],
 	disableDays: [],
 	labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
@@ -46,6 +51,12 @@ There are numerous ways to disable specific dates with Picky, I'll explain each 
 	disablePast: true/false
 
 Disable all the dates before today's date.
+
+##### Disable Future
+
+	disableFuture: true/false/number
+
+Disable all future dates or all future dates after x amount of days in the future.
 
 ##### Disable
 
