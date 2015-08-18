@@ -200,7 +200,7 @@
 				
 				if(typeof options['select_callback'] === 'function') options['select_callback'](self, cell, date);
 
-				if(typeof options['linked'] === 'object' && options['linked'].size() > 0 && options['linked'].data('ins') !== ins) {
+				if(typeof options['linked'] === 'object' && (options['linked'] && options['linked'].length > 0) && options['linked'].data('ins') !== ins && settings.disableFuture !== true) {
 
 					var startDate = new Date(date);
 						startDate.setDate(date.getDate() +1);
