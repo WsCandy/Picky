@@ -42,6 +42,13 @@ body {
 
 // Actual Styles
 
+$picky_primary: #47b5b3;
+$picky_bg: #181818;
+$picky_font: #e5e4e4;
+$picky_arrow: #FFF;
+$picky_disabled_bg: #272725;
+$picky_disabled_font: #515150;
+
 @-webkit-keyframes showCal {
 
 	0% {
@@ -91,7 +98,7 @@ body {
 		z-index: -1;
 		-webkit-transform-origin: top center;
 
-		background: #181818;
+		background: $picky_bg;
 
 		-webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
 		display: none;
@@ -109,7 +116,7 @@ body {
 	&__header {
 
 		text-align: center;
-		color: #47b5b3;
+		color: $picky_primary;
 		text-transform: uppercase;
 		font-weight: bold;
 		font-size: 14px;
@@ -138,7 +145,7 @@ body {
 				top: 5px;
 				left: 8px;
 
-				border-left: 6px solid white;
+				border-left: 6px solid $picky_arrow;
 				border-top: 6px solid transparent;
 				border-bottom: 6px solid transparent;
 
@@ -157,7 +164,7 @@ body {
 				top: 5px;
 				right: 8px;
 
-				border-right: 6px solid #e5e4e4;
+				border-right: 6px solid $picky_arrow;
 				border-top: 6px solid transparent;
 				border-bottom: 6px solid transparent;
 
@@ -175,20 +182,20 @@ body {
 
 		&--cell, &--heading {
 
-			color: #e5e4e4;
+			color: $picky_font;
 			padding: 11px 0;
 			text-align: center;
 			vertical-align: center;
-			border: 1px solid #272725;
+			border: 1px solid $picky_disabled_bg;
 
 		}
 
 		&--heading {
 
-			color: #47b5b3;
+			color: $picky_primary;
 			text-transform: uppercase;
 			font-weight: bold;
-			background: #272725;
+			background: $picky_disabled_bg;
 
 		}
 
@@ -198,21 +205,21 @@ body {
 
 			&.active {
 
-				background: #47b5b3;
+				background: $picky_primary;
 
 			}
 
 			&:hover {
 
-				background: #47b5b3;
+				background: $picky_primary;
 
 			}
 
 			&.disabled {
 
 				cursor: default;
-				background: #272725;
-				color: #515150;
+				background: $picky_disabled_bg;
+				color: $picky_disabled_font;
 
 			}
 
