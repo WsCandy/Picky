@@ -77,7 +77,8 @@
 			advance: 0,
 			startDay: null,
 			select_callback: null,
-			linked: null
+			linked: null,
+			disableFuture: false
 
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
@@ -290,7 +291,11 @@
 
 			this.activateDay = function(date, cell) {
 
-				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) cell.removeClass('disabled');
+				var disableAfter = new Date();
+					disableAfter.setDate(today.getDate() + settings.disableFuture);
+
+				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday && (typeof settings.disableFuture === 'number' ? (date['full'] < disableAfter) : (settings.disableFuture !== true))) cell.removeClass('disabled');
+				if(date['full'].getTime() < today.getTime() && settings.disableFuture === true) cell.removeClass('disabled');
 				if(options['disable'].length > 0) {
 
 					for(var i = 0; i < options['disable'].length; i++) {
