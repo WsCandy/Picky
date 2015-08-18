@@ -1,16 +1,12 @@
-Picky - v1.2.0
+Picky - v1.2.1
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.2.0 Update
+1.2.1 Update
 ---
 
-bower/ppm install support added:
-
-	ppm install propcom-picky
-
-Simple!
+Fixed the console error when there isn't a linked element.
 
 #####Release History
 
