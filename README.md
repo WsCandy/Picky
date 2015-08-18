@@ -1,14 +1,25 @@
-Picky - v1.3.1
+Picky - v1.3.2
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.3.1 Update
+1.3.2 Update
 ---
+
+Slight rework of disableFuture.
+
+---
+
+1.3.1
 
 Made the CSS/SASS easier to work with, added in variable to easily theme the widget.
 
+---
+
+1.3.0
+
 Added in a disableFuture option.
+
 
 disableFuture accepts two different values, you can pass it "true" to disable all future dates, or you can past it a number to disable after x amount of days in the future, for example a restaurant that only accepts bookings 10 days in advance.
 
