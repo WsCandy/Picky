@@ -1,10 +1,12 @@
-Picky - v1.3.0
+Picky - v1.3.1
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.3.0 Update
+1.3.1 Update
 ---
+
+Made the CSS/SASS easier to work with, added in variable to easily theme the widget.
 
 Added in a disableFuture option.
 
