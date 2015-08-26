@@ -1,9 +1,16 @@
-Picky - v1.3.2
+Picky - v1.3.3
 =====
 
 #####8.7kb, (4.9kb min)
 
-1.3.2 Update
+1.3.3 Update
+---
+
+Bug fix - Future false not showing future
+
+---
+
+1.3.2
 ---
 
 Slight rework of disableFuture.

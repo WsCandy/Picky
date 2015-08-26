@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.3.2',
+	var version = '1.3.3',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
@@ -295,7 +295,7 @@
 				var disableAfter = new Date();
 					disableAfter.setDate(today.getDate() + settings.disableFuture);
 
-				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday && date['full'] < disableAfter) cell.removeClass('disabled');
+				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) cell.removeClass('disabled');
 				if(date['full'].getTime() < today.getTime() && settings.disableFuture === true) cell.removeClass('disabled');
 				if(options['disable'].length > 0) {
 
