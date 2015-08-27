@@ -259,8 +259,8 @@
 
 			this.getDays = function(month, year) {
 
-				month = month === undefined ? today.getMonth() : month;
-				year = year === undefined ? today.getFullYear() : year;
+				month = month || today.getMonth();
+				year = year || today.getFullYear();
 
 				var date = new Date(year, month, 1),
 					days = [];
@@ -288,8 +288,8 @@
 				var days = mod.dates.getDays(month, year),
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
-				month = !month ? days[0].getMonth() : month;
-				year = year === undefined ? today.getFullYear() : year;
+				month = month || days[0].getMonth();
+				year = year || today.getFullYear();
 				currentMonth = new Date(days[0].getTime());
 				
 				cells = table.find('.picky__table--cell');
