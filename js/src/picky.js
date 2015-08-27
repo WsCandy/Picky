@@ -342,9 +342,7 @@
 
 			this.activateDay = function(date, cell) {
 
-				var disableAfter = new Date(),
-					i = 0,
-					l;
+				var disableAfter = new Date();
 					disableAfter.setDate(today.getDate() + settings.disableFuture);
 
 				if(date.full.getMonth() === date.month && date.full > yesterday) {
@@ -368,7 +366,7 @@
 
 				if(options.disable.length > 0) {
 
-					for(i, l = options.disable.length; i < l; i++) {
+					for(var i = 0, l = options.disable.length; i < l; i++) {
 
 						if(typeof options.disable[i] === 'string') {
 
@@ -401,7 +399,7 @@
 
 			this.disableDOW = function(date, cell) {
 
-				for(i = 0, l = options.disableDays.length; i < l; i++) {
+				for(var i = 0, l = options.disableDays.length; i < l; i++) {
 
 					if(date.full.getDay() === options.disableDays[i]) {
 
