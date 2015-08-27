@@ -222,8 +222,15 @@
 					mod.dates.populate(date.getMonth(), date.getFullYear());
 					return;
 
-				}
-				
+				}				
+
+				mod.dates.setValues(cell, date);
+				mod.dates.linkedOptions(cell, date);
+
+			};
+
+			this.setValues = function(cell, date) {
+
 				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
 
 				container.removeClass('active');
@@ -233,6 +240,10 @@
 					options.select_callback(self, cell, date);
 					
 				}
+
+			}
+
+			this.linkedOptions = function(cell, date) {
 
 				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && settings.disableFuture !== true) {
 
