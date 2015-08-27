@@ -261,7 +261,7 @@
 
 				}
 
-				while(date.getMonth() === (month == 11 ? 0 : month + 1)) {
+				while(date.getMonth() === (month === 11 ? 0 : month + 1)) {
 
 					days.push(new Date(date));
 					date.setDate(date.getDate() + 1);
@@ -275,7 +275,10 @@
 			this.populate = function(month, year) {
 
 				var days = mod.dates.getDays(month, year),
-					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
+					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1,
+					cell,
+					i = 0,
+					l;
 
 				month = !month ? days[0].getMonth() : month;
 				year = year === undefined ? today.getFullYear() : year;
@@ -287,9 +290,9 @@
 
 				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
 
-				for(var i = 0; i < cells.length; i++) {
+				for(i, l = cells.length; i < l; i++) {
 
-					var cell = $(cells[i + firstDayOffset]);
+					cell = $(cells[i + firstDayOffset]);
 
 					mod.dates.activateDay({
 
@@ -310,7 +313,7 @@
 
 				}
 
-				for(var i = firstDayOffset -1; i >= 0; i--) {
+				for(i = firstDayOffset -1; i >= 0; i--) {
 
 					cell = $(cells[i]);
 
@@ -328,7 +331,9 @@
 
 			this.activateDay = function(date, cell) {
 
-				var disableAfter = new Date();
+				var disableAfter = new Date(),
+					i = 0,
+					l;
 					disableAfter.setDate(today.getDate() + settings.disableFuture);
 
 				if(date.full.getMonth() === date.month && date.full > yesterday) {
@@ -345,7 +350,7 @@
 
 				if(options.disable.length > 0) {
 
-					for(var i = 0, l = options.disable.length; i < l; i++) {
+					for(i, l = options.disable.length; i < l; i++) {
 
 						if(typeof options.disable[i] === 'string') {
 
@@ -399,9 +404,11 @@
 
 			};
 
-			this.navigate = function() {
+			this.navigate = function(e) {
 
 				var date = $(this).data('date');
+
+				e.preventDefault();
 
 				mod.dates.populate(date.getMonth(), date.getFullYear());
 
@@ -439,7 +446,7 @@
 					$('<a />', {
 
 						'class' : 'picky__nav picky__nav' + (i === 0 ? '--prev' : '--next'),
-						'href' : 'javascript:void(0)'
+						'href' : '#'
 
 					}).prependTo(container);
 
