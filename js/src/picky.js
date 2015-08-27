@@ -489,7 +489,11 @@
 
 					}).appendTo(row);
 
-					if(rowIndex === 0) cell.text(options.labels[i]);
+					if(rowIndex === 0) {
+
+						cell.text(options.labels[i]);
+
+					}
 
 				}
 
