@@ -207,13 +207,9 @@
 				var cell = $(this),
 					date = cell.data('date');
 
-				if(date > yesterday) {
+				if(date > yesterday && (cell.hasClass('disabled') && date.getMonth() === currentMonth.getMonth())) {
 
-					if(cell.hasClass('disabled') && date.getMonth() === currentMonth.getMonth()) {
-
-						return;
-
-					}
+					return;
 
 				}
 				
@@ -259,8 +255,8 @@
 
 			this.getDays = function(month, year) {
 
-				month = month || today.getMonth();
-				year = year || today.getFullYear();
+				month = (month === undefined ? today.getMonth() : month);
+				year = (year === undefined ? today.getFullYear() : year);
 
 				var date = new Date(year, month, 1),
 					days = [];
@@ -449,11 +445,7 @@
 			this.construct = function() {
 
 				self.attr('readonly', true);
-
-				mod.elements.createContainer();
-				mod.elements.createHeader();
-				mod.elements.createNav();
-				mod.elements.createTable();
+				mod.elements.createContainer().createHeader().createNav().createTable();
 
 			};
 
@@ -463,7 +455,9 @@
 
 					'class' : 'picky__container'
 
-				}).appendTo(self.parent());				
+				}).appendTo(self.parent());
+
+				return mod.elements;
 
 			};
 
@@ -482,6 +476,8 @@
 
 				nav = container.find('.picky__nav');
 
+				return mod.elements;
+
 			};
 
 			this.createHeader = function() {
@@ -493,6 +489,8 @@
 				}).prependTo(container);
 
 				header.text(options.monthNames[today.getMonth()] + ' ' + today.getFullYear());
+
+				return mod.elements;
 
 			};
 
@@ -509,6 +507,8 @@
 					mod.elements.createRow(i);
 
 				}
+
+				return mod.elements;
 
 			};
 
