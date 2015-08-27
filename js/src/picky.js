@@ -241,7 +241,7 @@
 					
 				}
 
-			}
+			};
 
 			this.linkedOptions = function(cell, date) {
 
@@ -286,10 +286,7 @@
 			this.populate = function(month, year) {
 
 				var days = mod.dates.getDays(month, year),
-					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1,
-					cell,
-					i = 0,
-					l;
+					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
 				month = !month ? days[0].getMonth() : month;
 				year = year === undefined ? today.getFullYear() : year;
@@ -301,9 +298,18 @@
 
 				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
 
-				for(i, l = cells.length; i < l; i++) {
+				mod.dates.populateMonth(cells, days, month, year, firstDayOffset);
+				mod.dates.populateNextMonth(cells, days, month, year, firstDayOffset);				
 
-					cell = $(cells[i + firstDayOffset]);
+				mod.dates.setNav();
+
+			};
+
+			this.populateMonth = function(cells, days, month, year, firstDayOffset) {
+
+				for(var i = 0, l = cells.length; i < l; i++) {
+
+					var cell = $(cells[i + firstDayOffset]);
 
 					mod.dates.activateDay({
 
@@ -324,9 +330,13 @@
 
 				}
 
-				for(i = firstDayOffset -1; i >= 0; i--) {
+			};
 
-					cell = $(cells[i]);
+			this.populateNextMonth = function(cells, days, month, year, firstDayOffset) {
+
+				for(var i = firstDayOffset -1; i >= 0; i--) {
+
+					var cell = $(cells[i]);
 
 					days.push(new Date(year, month, 1));
 					days[days.length - 1].setDate(days[i].getDate() - firstDayOffset);
@@ -335,8 +345,6 @@
 					cell.text(days[days.length - 1].getDate());
 
 				}
-
-				mod.dates.setNav();
 
 			};
 

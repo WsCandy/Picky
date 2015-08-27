@@ -10,6 +10,7 @@ $(document).on('ready', function() {
 		advance: 0,
 		select_callback: function(input, cell, date) {
 
+			console.log(input, cell, date);
 
 		},
 		linked: $('.picky2')
