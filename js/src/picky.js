@@ -359,6 +359,13 @@
 
 				}
 
+				mod.dates.disableDates(date, cell);
+				mod.dates.disableDOW(date, cell);				
+
+			};
+
+			this.disableDates = function(date, cell) {
+
 				if(options.disable.length > 0) {
 
 					for(i, l = options.disable.length; i < l; i++) {
@@ -389,6 +396,10 @@
 					}
 					
 				}
+
+			};
+
+			this.disableDOW = function(date, cell) {
 
 				for(i = 0, l = options.disableDays.length; i < l; i++) {
 
