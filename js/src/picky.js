@@ -299,7 +299,7 @@
 				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
 
 				mod.dates.populateMonth(days, month, year, firstDayOffset);
-				mod.dates.populateNextMonth(days, firstDayOffset);
+				mod.dates.populateNextMonth(days, month, year, firstDayOffset);
 
 				mod.dates.setNav();
 
@@ -332,7 +332,7 @@
 
 			};
 
-			this.populateNextMonth = function(days, firstDayOffset) {
+			this.populateNextMonth = function(days, month, year, firstDayOffset) {
 
 				for(var i = firstDayOffset -1; i >= 0; i--) {
 
