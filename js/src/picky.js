@@ -120,7 +120,7 @@
 
 			bindings: function() {
 
-				self.on('click', mod.dates.show)
+				self.on('click', mod.dates.show);
 				cells.on('click', mod.dates.fillOut);
 				nav.on('click', mod.dates.navigate);
 
@@ -184,9 +184,13 @@
 
 			this.report = function(type, message) {
 
-				if(console) console[type]('['+ name +' '+ version +'] - ' + message);
+				if(console) {
 
-			}
+					console[type]('['+ name +' '+ version +'] - ' + message);
+
+				}
+
+			};
 
 		};
 
@@ -205,7 +209,11 @@
 
 				if(date > yesterday) {
 
-					if(cell.hasClass('disabled') && date.getMonth() === currentMonth.getMonth()) return;
+					if(cell.hasClass('disabled') && date.getMonth() === currentMonth.getMonth()) {
+
+						return;
+
+					}
 
 				}
 				
@@ -220,7 +228,11 @@
 
 				container.removeClass('active');
 				
-				if(typeof options.select_callback === 'function') options.select_callback(self, cell, date);
+				if(typeof options.select_callback === 'function') {
+
+					options.select_callback(self, cell, date);
+					
+				}
 
 				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && settings.disableFuture !== true) {
 
@@ -287,7 +299,11 @@
 
 					}, cell);
 
-					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) cell.addClass('active');
+					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) {
+
+						cell.addClass('active');
+
+					}
 
 					cell.data('date', days[i]);
 					cell.text(days[i].getDate());
@@ -296,7 +312,7 @@
 
 				for(var i = firstDayOffset -1; i >= 0; i--) {
 
-					var cell = $(cells[i]);
+					cell = $(cells[i]);
 
 					days.push(new Date(year, month, 1));
 					days[days.length - 1].setDate(days[i].getDate() - firstDayOffset);
@@ -315,24 +331,42 @@
 				var disableAfter = new Date();
 					disableAfter.setDate(today.getDate() + settings.disableFuture);
 
-				if(date.full.getMonth() === date.month && date.full > yesterday) cell.removeClass('disabled');
-				if(date.full.getTime() < today.getTime() && settings.disableFuture === true) cell.removeClass('disabled');
+				if(date.full.getMonth() === date.month && date.full > yesterday) {
+
+					cell.removeClass('disabled');
+
+				}
+
+				if(date.full.getTime() < today.getTime() && settings.disableFuture === true) {
+
+					cell.removeClass('disabled');
+
+				}
+
 				if(options.disable.length > 0) {
 
-					for(var i = 0; i < options.disable.length; i++) {
+					for(var i = 0, l = options.disable.length; i < l; i++) {
 
 						if(typeof options.disable[i] === 'string') {
 
 							var split = options.disable[i].split('-', 3);
 							
-							if(date.full >= new Date(split[0], (split[1] -1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) cell.addClass('disabled');
+							if(date.full >= new Date(split[0], (split[1] -1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) {
+
+								cell.addClass('disabled');
+
+							}
 
 						} else if(typeof options.disable[i] === 'object') {
 
 							var start = options.disable[i][0].split('-', 3),
 								end =  options.disable[i][1].split('-', 3);
 
-							if(date.full >= new Date(start[0], (start[1] -1), start[2]) && date.full <= new Date(end[0], (end[1] -1), end[2])) cell.addClass('disabled');
+							if(date.full >= new Date(start[0], (start[1] -1), start[2]) && date.full <= new Date(end[0], (end[1] -1), end[2])) {
+
+								cell.addClass('disabled');
+
+							}
 
 						}
 
@@ -340,9 +374,13 @@
 					
 				}
 
-				for(var i = 0; i < options.disableDays.length; i++) {
+				for(i = 0, l = options.disableDays.length; i < l; i++) {
 
-					if(date.full.getDay() == options.disableDays[i]) cell.addClass('disabled');
+					if(date.full.getDay() === options.disableDays[i]) {
+
+						cell.addClass('disabled');
+
+					}
 
 				}
 
@@ -400,7 +438,7 @@
 
 					$('<a />', {
 
-						'class' : 'picky__nav picky__nav' + (i == 0 ? '--prev' : '--next'),
+						'class' : 'picky__nav picky__nav' + (i === 0 ? '--prev' : '--next'),
 						'href' : 'javascript:void(0)'
 
 					}).prependTo(container);
