@@ -298,14 +298,14 @@
 
 				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
 
-				mod.dates.populateMonth(cells, days, month, year, firstDayOffset);
-				mod.dates.populateNextMonth(cells, days, month, year, firstDayOffset);				
+				mod.dates.populateMonth(days, month, year, firstDayOffset);
+				mod.dates.populateNextMonth(days, firstDayOffset);
 
 				mod.dates.setNav();
 
 			};
 
-			this.populateMonth = function(cells, days, month, year, firstDayOffset) {
+			this.populateMonth = function(days, month, year, firstDayOffset) {
 
 				for(var i = 0, l = cells.length; i < l; i++) {
 
@@ -332,7 +332,7 @@
 
 			};
 
-			this.populateNextMonth = function(cells, days, month, year, firstDayOffset) {
+			this.populateNextMonth = function(days, firstDayOffset) {
 
 				for(var i = firstDayOffset -1; i >= 0; i--) {
 
