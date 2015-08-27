@@ -7,7 +7,8 @@
 
 	$.fn.picky = function(settings, params) {
 		
-		var results = [];
+		var results = [],
+			ins;
 
 		for(var i = 0; i < this.length; i++) {
 
@@ -15,32 +16,31 @@
 
 			if(!self.data('ins')) {
 
-				if(typeof settings == 'string' && console) {
+				if(typeof settings === 'string' && console) {
 
 					console.error('['+ name +' '+ version +'] - not running, try firing methods after initialisation'); 
 					continue;
 
 				}
 
-				var ins = new picky_core(self, settings);
-
+				ins = new PickyCore(self, settings);
 				ins.init();
 
 				self.data('ins', ins);
 
 			} else {
 
-				var ins = self.data('ins');
+				ins = self.data('ins');
 
-				if(ins['publicF'][settings]) {
+				if(ins.publicF[settings]) {
 
 					if(this.length > 1) {
 
-						results.push(ins['publicF'][settings](params));
+						results.push(ins.publicF[settings](params));
 
 					} else {
 
-						return ins['publicF'][settings](params);
+						return ins.publicF[settings](params);
 						
 					}
 
@@ -49,7 +49,7 @@
 					if(console) {
 					
 						console.error('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
-						return ins['publicF'];
+						return ins.publicF;
 
 					}
 
@@ -59,11 +59,15 @@
 
 		}
 
-		if(results.length >= 1) return results;
+		if(results.length >= 1) {
+		
+			return results;
 
-	}
+		}
 
-	var picky_core = function(self, settings) {
+	};
+
+	var PickyCore = function(self, settings) {
 
 		var ins = this,
 			mod = {},
@@ -86,11 +90,15 @@
 		currentMonth = 0;
 		settings.disableFuture = (settings.disableFuture === true ? 0 : settings.disableFuture);
 
-		today.setDate(today.getDate() + options['advance']);
+		today.setDate(today.getDate() + options.advance);
 
-		var yesterday = options['disablePast'] === true ? new Date(today.getTime()) : 0;
+		var yesterday = options.disablePast === true ? new Date(today.getTime()) : 0;
 
-		if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
+		if(typeof yesterday === 'object') {
+		
+			yesterday.setDate(today.getDate() -1);
+
+		}
 
 		var setUp = {
 
@@ -98,19 +106,23 @@
 
 				setUp.defineModules();
 
-				if(!setUp.checks()) return;
+				if(!setUp.checks()) {
 
-				mod['elements'].construct();
-				mod['dates'].populate();
+					return;
+					
+				}
+
+				mod.elements.construct();
+				mod.dates.populate();
 				setUp.bindings();
 
 			},
 
 			bindings: function() {
 
-				self.on('click', mod['dates'].show)
-				cells.on('click', mod['dates'].fillOut);
-				nav.on('click', mod['dates'].navigate);
+				self.on('click', mod.dates.show)
+				cells.on('click', mod.dates.fillOut);
+				nav.on('click', mod.dates.navigate);
 
 			},
 
@@ -120,7 +132,11 @@
 
 				for(var module in modules) {
 
-					mod[modules[module]] = new ins[modules[module]]();
+					if(modules.hasOwnProperty(module)) {
+
+						mod[modules[module]] = new ins[modules[module]]();						
+
+					}
 
 				}
 
@@ -130,7 +146,7 @@
 
 				if(!self.is('input[type="text"]')) {
 
-					mod['misc'].report('warn', 'Please fire the plugin on an input[type="text"] element! - Shutting down... :(');
+					mod.misc.report('warn', 'Please fire the plugin on an input[type="text"] element! - Shutting down... :(');
 					return false;
 					
 				}
@@ -139,26 +155,30 @@
 
 			}
 
-		}
+		};
 
 		ins.publicF = {
 
 			getMonth: function(date) {
 
-				mod['dates'].populate(date[0], date[1]);
+				mod.dates.populate(date[0], date[1]);
 
 			},
 
 			setStart: function(date) {
 
 				today = new Date(date);
-				yesterday = options['disablePast'] === true ? new Date(today.getTime()) : 0;
-				if(typeof yesterday === 'object') yesterday.setDate(today.getDate() -1);
+				yesterday = options.disablePast === true ? new Date(today.getTime()) : 0;
+				if(typeof yesterday === 'object') {
+
+					yesterday.setDate(today.getDate() -1);
+					
+				}
 				
-				mod['dates'].populate(today.getMonth(), today.getFullYear());
+				mod.dates.populate(today.getMonth(), today.getFullYear());
 			}
 
-		}
+		};
 
 		ins.misc = function() {
 
@@ -168,7 +188,7 @@
 
 			}
 
-		}
+		};
 
 		ins.dates = function() {
 
@@ -176,7 +196,7 @@
 
 				container.addClass('active');
 
-			}
+			};
 
 			this.fillOut = function() {
 
@@ -191,7 +211,7 @@
 				
 				if(cell.hasClass('disabled')) {
 
-					mod['dates'].populate(date.getMonth(), date.getFullYear());
+					mod.dates.populate(date.getMonth(), date.getFullYear());
 					return;
 
 				}
@@ -200,19 +220,19 @@
 
 				container.removeClass('active');
 				
-				if(typeof options['select_callback'] === 'function') options['select_callback'](self, cell, date);
+				if(typeof options.select_callback === 'function') options.select_callback(self, cell, date);
 
-				if(typeof options['linked'] === 'object' && (options['linked'] && options['linked'].length > 0) && options['linked'].data('ins') !== ins && settings.disableFuture !== true) {
+				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && settings.disableFuture !== true) {
 
 					var startDate = new Date(date);
 						startDate.setDate(date.getDate() +1);
 
-					options['linked'].picky('setStart', startDate);
-					options['linked'].val('');
+					options.linked.picky('setStart', startDate);
+					options.linked.val('');
 					
 				}
 
-			}
+			};
 
 			this.getDays = function(month, year) {
 
@@ -238,11 +258,11 @@
 
 				return days;
 
-			}
+			};
 
 			this.populate = function(month, year) {
 
-				var days = mod['dates'].getDays(month, year),
+				var days = mod.dates.getDays(month, year),
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
 				month = !month ? days[0].getMonth() : month;
@@ -253,13 +273,13 @@
 				cells.addClass('disabled');
 				cells.removeClass('active');
 
-				header.text(options['monthNames'][days[0].getMonth()] + ' ' + days[0].getFullYear());
+				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
 
 				for(var i = 0; i < cells.length; i++) {
 
 					var cell = $(cells[i + firstDayOffset]);
 
-					mod['dates'].activateDay({
+					mod.dates.activateDay({
 
 						full: days[i],
 						month: month,
@@ -286,33 +306,33 @@
 
 				}
 
-				mod['dates'].setNav();
+				mod.dates.setNav();
 
-			}
+			};
 
 			this.activateDay = function(date, cell) {
 
 				var disableAfter = new Date();
 					disableAfter.setDate(today.getDate() + settings.disableFuture);
 
-				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday) cell.removeClass('disabled');
-				if(date['full'].getTime() < today.getTime() && settings.disableFuture === true) cell.removeClass('disabled');
-				if(options['disable'].length > 0) {
+				if(date.full.getMonth() === date.month && date.full > yesterday) cell.removeClass('disabled');
+				if(date.full.getTime() < today.getTime() && settings.disableFuture === true) cell.removeClass('disabled');
+				if(options.disable.length > 0) {
 
-					for(var i = 0; i < options['disable'].length; i++) {
+					for(var i = 0; i < options.disable.length; i++) {
 
-						if(typeof options['disable'][i] === 'string') {
+						if(typeof options.disable[i] === 'string') {
 
-							var split = options['disable'][i].split('-', 3);
+							var split = options.disable[i].split('-', 3);
 							
-							if(date['full'] >= new Date(split[0], (split[1] -1), split[2]) && date['full'] <= new Date(split[0], (split[1] - 1), split[2])) cell.addClass('disabled');
+							if(date.full >= new Date(split[0], (split[1] -1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) cell.addClass('disabled');
 
-						} else if(typeof options['disable'][i] === 'object') {
+						} else if(typeof options.disable[i] === 'object') {
 
-							var start = options['disable'][i][0].split('-', 3),
-								end =  options['disable'][i][1].split('-', 3);
+							var start = options.disable[i][0].split('-', 3),
+								end =  options.disable[i][1].split('-', 3);
 
-							if(date['full'] >= new Date(start[0], (start[1] -1), start[2]) && date['full'] <= new Date(end[0], (end[1] -1), end[2])) cell.addClass('disabled');
+							if(date.full >= new Date(start[0], (start[1] -1), start[2]) && date.full <= new Date(end[0], (end[1] -1), end[2])) cell.addClass('disabled');
 
 						}
 
@@ -320,13 +340,13 @@
 					
 				}
 
-				for(var i = 0; i < options['disableDays'].length; i++) {
+				for(var i = 0; i < options.disableDays.length; i++) {
 
-					if(date['full'].getDay() == options['disableDays'][i]) cell.addClass('disabled');
+					if(date.full.getDay() == options.disableDays[i]) cell.addClass('disabled');
 
 				}
 
-			}
+			};
 
 			this.setNav = function() {
 
@@ -339,17 +359,17 @@
 				container.find('.picky__nav--next').data('date', next);
 				container.find('.picky__nav--prev').data('date', prev);
 
-			}
+			};
 
 			this.navigate = function() {
 
 				var date = $(this).data('date');
 
-				mod['dates'].populate(date.getMonth(), date.getFullYear());
+				mod.dates.populate(date.getMonth(), date.getFullYear());
 
-			}
+			};
 
-		}
+		};
 
 		ins.elements = function() {
 
@@ -357,12 +377,12 @@
 
 				self.attr('readonly', true);
 
-				mod['elements'].createContainer();
-				mod['elements'].createHeader();
-				mod['elements'].createNav();
-				mod['elements'].createTable();
+				mod.elements.createContainer();
+				mod.elements.createHeader();
+				mod.elements.createNav();
+				mod.elements.createTable();
 
-			}
+			};
 
 			this.createContainer = function() {
 
@@ -372,7 +392,7 @@
 
 				}).appendTo(self.parent());				
 
-			}
+			};
 
 			this.createNav = function() {
 
@@ -389,7 +409,7 @@
 
 				nav = container.find('.picky__nav');
 
-			}
+			};
 
 			this.createHeader = function() {
 
@@ -399,9 +419,9 @@
 
 				}).prependTo(container);
 
-				header.text(options['monthNames'][today.getMonth()] + ' ' + today.getFullYear());
+				header.text(options.monthNames[today.getMonth()] + ' ' + today.getFullYear());
 
-			}
+			};
 
 			this.createTable = function() {
 
@@ -413,11 +433,11 @@
 
 				for(var i = 0; i < 7; i++) {
 
-					mod['elements'].createRow(i);
+					mod.elements.createRow(i);
 
 				}
 
-			}
+			};
 
 			this.createRow = function(rowIndex) {
 
@@ -431,20 +451,20 @@
 
 					}).appendTo(row);
 
-					if(rowIndex === 0) cell.text(options['labels'][i]);
+					if(rowIndex === 0) cell.text(options.labels[i]);
 
 				}
 
-			}			
+			};	
 
-		}
+		};
 
 		ins.init = function() {
 
 			setUp.init();
 
-		}
+		};
 
-	}
+	};
 
 })();
