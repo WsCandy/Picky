@@ -1,10 +1,17 @@
-Picky - v1.4.1
+Picky - v1.4.2
 =====
 
 #####10.2kb, (6kb min)
 
-1.4.1 Update
+1.4.2 Update
 ---
+
+Updated bower.json with correct info.
+
+---
+
+1.4.1 Update
+
 
 Fixed a bug with disable future
 
