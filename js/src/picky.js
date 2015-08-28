@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.4.0',
+	var version = '1.4.1',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
@@ -74,6 +74,7 @@
 			defaults = {
 
 			disablePast: true,
+			disableFuture: false,
 			disable: [],
 			disableDays: [],
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
@@ -81,14 +82,22 @@
 			advance: 0,
 			startDay: null,
 			select_callback: null,
-			linked: null,
-			disableFuture: false
+			linked: null
 
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
 		today = options.startDay ? new Date(options.startDay) : new Date(),
 		currentMonth = 0;
-		settings.disableFuture = (settings.disableFuture === true ? 0 : settings.disableFuture);
+		
+		if(options.disableFuture === false) {
+			
+			options.disableFuture = 100000;
+			
+		} else if(options.disableFuture === true) {
+		
+			options.disableFuture = 0;
+				
+		}
 
 		today.setDate(today.getDate() + options.advance);
 
@@ -224,11 +233,26 @@
 				mod.dates.linkedOptions(cell, date);
 
 			};
+			
+			this.parseDouble = function(value) {
+				
+				if(value < 10) {
+				
+					return '0'+value;
+						
+				} else {
+				
+					return value;
+						
+				}
+				
+			};
 
 			this.setValues = function(cell, date) {
 
-				self.val(date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
-
+				var dateValue = (mod.dates.parseDouble(date.getDate())) + '/' + (mod.dates.parseDouble(date.getMonth() + 1)) + '/' + date.getFullYear();
+				
+				self.val(dateValue);
 				container.removeClass('active');
 				
 				if(typeof options.select_callback === 'function') {
@@ -241,7 +265,7 @@
 
 			this.linkedOptions = function(cell, date) {
 
-				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && settings.disableFuture !== true) {
+				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && options.disableFuture !== true) {
 
 					var startDate = new Date(date);
 						startDate.setDate(date.getDate() +1);
@@ -347,15 +371,15 @@
 			this.activateDay = function(date, cell) {
 
 				var disableAfter = new Date();
-					disableAfter.setDate(today.getDate() + settings.disableFuture);
+					disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(date.full.getMonth() === date.month && date.full > yesterday) {
+				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday && date['full'] < disableAfter) {
 
 					cell.removeClass('disabled');
 
 				}
 
-				if(date.full.getTime() < today.getTime() && settings.disableFuture === true) {
+				if(date.full.getTime() < today.getTime() && options.disableFuture === true) {
 
 					cell.removeClass('disabled');
 

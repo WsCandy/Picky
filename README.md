@@ -1,10 +1,16 @@
-Picky - v1.4.0
+Picky - v1.4.1
 =====
 
 #####10.2kb, (6kb min)
 
-1.4.0 Update
+1.4.1 Update
 ---
+
+Fixed a bug with disable future
+
+---
+
+1.4.0
 
 Overhauled the code to make it easier to read and adhere to common coding standards, it's a lot neater now!
 
