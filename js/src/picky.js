@@ -373,7 +373,7 @@
 				var disableAfter = new Date();
 					disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(date['full'].getMonth() === date['month'] && date['full'] > yesterday && date['full'] < disableAfter) {
+				if(date.full.getMonth() === date.month && date.full > yesterday && date.full < disableAfter) {
 
 					cell.removeClass('disabled');
 
