@@ -77,6 +77,7 @@
 			disableFuture: false,
 			disable: [],
 			disableDays: [],
+			format: '%d/%m/%Y',
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0,
@@ -250,7 +251,10 @@
 
 			this.setValues = function(cell, date) {
 
-				var dateValue = (mod.dates.parseDouble(date.getDate())) + '/' + (mod.dates.parseDouble(date.getMonth() + 1)) + '/' + date.getFullYear();
+				var dateValue = options.format
+					.replace("%s", mod.dates.parseDouble(date.getDate()))
+					.replace("%m", mod.dates.parseDouble(date.getMonth() + 1))
+					.replace("%Y", date.getFullYear());
 				
 				self.val(dateValue);
 				container.removeClass('active');
