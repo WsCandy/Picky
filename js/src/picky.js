@@ -208,7 +208,12 @@
 
 			this.show = function() {
 
-				container.addClass('active');
+				if(!container.hasClass('active')){
+					container.addClass('active');
+				}
+				else{
+					container.removeClass('active');
+				}
 
 			};
 
