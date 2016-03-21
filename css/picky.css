@@ -26,16 +26,12 @@ body {
 @-webkit-keyframes showCal {
   0% {
     -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%); }
-
   30% {
     -webkit-transform: perspective(1000px) rotateX(70deg) translateY(0%); }
-
   65% {
     -webkit-transform: perspective(1000px) rotateX(-20deg) translateY(0%); }
-
   90% {
     -webkit-transform: perspective(1000px) rotateX(10deg) translateY(0%); }
-
   100% {
     -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%); } }
 .picky {
@@ -46,7 +42,6 @@ body {
     position: absolute;
     top: 100%;
     right: 0;
-    z-index: -1;
     -webkit-transform-origin: top center;
     background: #181818;
     -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
@@ -61,7 +56,8 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 14px;
-    line-height: 40px; }
+    line-height: 40px;
+    margin-bottom: 0px; }
   .picky__nav {
     display: block;
     position: absolute;
@@ -76,7 +72,7 @@ body {
         position: absolute;
         top: 5px;
         left: 8px;
-        border-left: 6px solid white;
+        border-left: 6px solid #FFF;
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent; }
     .picky__nav--prev {
@@ -86,7 +82,7 @@ body {
         position: absolute;
         top: 5px;
         right: 8px;
-        border-right: 6px solid white;
+        border-right: 6px solid #FFF;
         border-top: 6px solid transparent;
         border-bottom: 6px solid transparent; }
   .picky__table {
