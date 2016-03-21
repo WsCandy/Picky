@@ -77,7 +77,7 @@
 			disableFuture: false,
 			disable: [],
 			disableDays: [],
-			format: '%d/%m/%Y',
+			format: 'd/m/Y',
 			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 			advance: 0,
@@ -88,7 +88,11 @@
 		},
 		options = $.extend(defaults, settings), container, header, nav, table, cells,
 		today = options.startDay ? new Date(options.startDay) : new Date(),
-		currentMonth = 0;
+		currentMonth = 0,
+		dayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+		dayFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+		monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+		monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		
 		if(options.disableFuture === false) {
 			
@@ -254,12 +258,137 @@
 				
 			};
 
+			this.parseCharacter = function(character, date) {
+
+				switch(character) {
+
+					case 'd' :
+
+						return mod.dates.parseDouble(date.getDate());
+
+					break;
+
+					case 'j' :
+
+						return date.getDate();
+
+					break;
+
+					case 'D' :
+
+						return dayShort[date.getDay()];
+
+					break;
+
+					case 'l' :
+
+						return dayFull[date.getDay()];
+
+					break;
+
+					case 'w' :
+
+						return date.getDay();
+
+					break;
+
+					case 'S' :
+
+						var dateString = String(date.getDate()).length === 1 ? String(date.getDate()) : String(date.getDate()).substr(1);
+
+						switch(dateString) {
+
+							case '1' :
+
+								return 'st';
+
+							break;
+
+							case '2' :
+
+								return 'nd';
+
+							break;
+
+							case '3' :
+
+								return 'rd';
+
+							break;
+
+							default :
+
+								return 'th';
+
+							break;
+
+						}
+
+					break;
+
+					case 'F' :
+
+						return monthFull[date.getMonth()];
+
+					break;
+
+					case 'm' :
+
+						return mod.dates.parseDouble(date.getMonth() + 1);
+
+					break;
+
+					case 'M' :
+
+						return monthShort[date.getMonth()];
+
+					break;
+
+					case 'n' :
+
+						return date.getMonth() + 1;
+
+					break;
+
+					case 'Y' :
+
+						return date.getFullYear();
+
+					break;
+
+					case 'y' :
+
+						return String(date.getFullYear()).substr(2);
+
+					break;
+
+					default :
+
+						return character;
+
+					break;
+
+				}
+
+			};
+
+			this.formatDate = function(format, date) {
+
+				var finalString = '';
+
+				for(var i = 0, l = format.length; i < l; i++) {
+
+					finalString += mod.dates.parseCharacter(format[i], date);
+
+				}
+
+				return finalString;
+
+			};
+
 			this.setValues = function(cell, date) {
 
-				var dateValue = options.format
-					.replace("%s", mod.dates.parseDouble(date.getDate()))
-					.replace("%m", mod.dates.parseDouble(date.getMonth() + 1))
-					.replace("%Y", date.getFullYear());
+				var dateValue = this.formatDate(options.format, date);
 				
 				self.val(dateValue);
 				container.removeClass('active');

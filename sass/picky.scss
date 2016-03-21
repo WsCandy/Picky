@@ -37,7 +37,7 @@ body {
 	float: left;
 	width: 48%;
 	margin-right: 2%;
-
+    
 }
 
 // Actual Styles
@@ -83,7 +83,6 @@ $picky_disabled_font: #515150;
 
 }
 
-
 .picky {
 
 	width: 100%;
@@ -95,7 +94,6 @@ $picky_disabled_font: #515150;
 		position: absolute;
 		top: 100%;
 		right: 0;
-		z-index: -1;
 		-webkit-transform-origin: top center;
 
 		background: $picky_bg;
@@ -121,6 +119,7 @@ $picky_disabled_font: #515150;
 		font-weight: bold;
 		font-size: 14px;
 		line-height: 40px;
+		margin-bottom: 0px;
 
 	}
 
@@ -196,6 +195,8 @@ $picky_disabled_font: #515150;
 			text-transform: uppercase;
 			font-weight: bold;
 			background: $picky_disabled_bg;
+			
+			
 
 		}
 

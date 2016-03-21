@@ -4,6 +4,7 @@ $('.picky').picky({
 	disablePast: true,
 	disableFuture: 10,
 	disableDays: [],
+	format: 'd/m/Y',
 	labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 	advance: 0,
 	select_callback: function(input, cell, date) {
