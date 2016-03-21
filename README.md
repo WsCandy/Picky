@@ -1,5 +1,10 @@
-Picky - v1.4.2
+Picky - v1.5.0
 =====
+
+1.5 Update
+---
+
+Added in a date format option, reference the [PHP date docs](http://php.net/manual/en/function.date.php) for full information
 
 #####10.2kb, (6kb min)
 
@@ -44,11 +49,32 @@ Here's a list of all the options with their default values:
 	labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 	monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 	advance: 0,
+	format: 'd/m/Y',
 	startDay: null,
 	select_callback: null,
 	linked: null
 
 All of the options are self explanatory, I'll go into more detail about disabling specific dates below!
+
+Date Format
+---
+
+The new date format option allows you to configure the format the date is outputted in text field.
+
+Please reference the [PHP date docs](http://php.net/manual/en/function.date.php) for full usage. Not all options are supported. See below for a list of supported characters.
+
+- d
+- D
+- j
+- l
+- S
+- w
+- F
+- m
+- M
+- n
+- Y
+- y
 
 Disabling Dates
 ---

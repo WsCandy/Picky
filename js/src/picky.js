@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.4.2',
+	var version = '1.5.0',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
