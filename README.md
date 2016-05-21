@@ -1,15 +1,22 @@
-Picky - v1.5.0
+Picky - v1.6.0
 =====
 
-1.5 Update
+1.6.0 Update
 ---
 
-Added in a date format option, reference the [PHP date docs](http://php.net/manual/en/function.date.php) for full information
+Added in multiple visibleMonth option and allowed for date range enable, see the options below.
 
 #####10.2kb, (6kb min)
 
-1.4.2 Update
 ---
+
+1.5.0 Update
+
+Added in a date format option, reference the [PHP date docs](http://php.net/manual/en/function.date.php) for full information
+
+---
+
+1.4.2 Update
 
 Updated bower.json with correct info.
 
@@ -45,6 +52,7 @@ Here's a list of all the options with their default values:
 	disablePast: true,
 	disableFuture: 10 / true
 	disable: [],
+	enable: [],
 	disableDays: [],
 	labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
 	monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -52,7 +60,8 @@ Here's a list of all the options with their default values:
 	format: 'd/m/Y',
 	startDay: null,
 	select_callback: null,
-	linked: null
+	linked: null,
+	visibleMonths: 1
 
 All of the options are self explanatory, I'll go into more detail about disabling specific dates below!
 
@@ -76,7 +85,7 @@ Please reference the [PHP date docs](http://php.net/manual/en/function.date.php)
 - Y
 - y
 
-Disabling Dates
+Disabling/Enabling Dates
 ---
 
 There are numerous ways to disable specific dates with Picky, I'll explain each method with examples below.
@@ -93,17 +102,17 @@ Disable all the dates before today's date.
 
 Disable all future dates or all future dates after x amount of days in the future.
 
-##### Disable
+##### Disable/Enable
 
-	disable: ['2015-01-08', ['2015-01-16', '2015-01-18'], '2015-01-14']
+	disable/enable: ['2015-01-08', ['2015-01-16', '2015-01-18'], '2015-01-14']
 
-Disable accepts an array of dates to disable, this can handle an unlimited amount of dates so feel free to add as many as you like. The above example will disable 8th Jan 2015  and then 16th Jan 2015 to 18th Jan 2015 and then disable the 14th Jan 2015. 
+Disable/Enable accepts an array of dates to disable/enable, this can handle an unlimited amount of dates so feel free to add as many as you like. The above example will disable 8th Jan 2015  and then 16th Jan 2015 to 18th Jan 2015 and then disable the 14th Jan 2015.
 
 Passing an array through to the option will disable the dates between the two you specify.
 
-To disable multiple single days simply do the following: 
+To disable/enable multiple single days simply do the following:
 
-	disable: ['2015-01-08', '2015-01-20', '2015-01-25']
+	disable/enable: ['2015-01-08', '2015-01-20', '2015-01-25']
 
 ##### Disable Days
 
