@@ -75,6 +75,7 @@
 
 				disablePast: true,
 				disableFuture: false,
+				enable: [],
 				disable: [],
 				disableDays: [],
 				format: 'd/m/Y',
@@ -186,7 +187,11 @@
 
 			getMonth: function(date) {
 
-				mod.dates.populate(date[0], date[1]);
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					mod.dates.populate(date[0] + i, date[1], i);
+
+				}
 
 			},
 
@@ -447,13 +452,18 @@
 				month = (month === undefined ? today.getMonth() : month);
 				year = (year === undefined ? today.getFullYear() : year);
 
-				if(!initial) {
+				if(initial === undefined) {
 
 					month = month + index;
 
 				}
 
-				month = month > 11 ? month - 12 : month;
+				if(month >= 12) {
+
+					month = month - 12;
+					year += 1;
+
+				}
 
 				var date = new Date(year, month, 1),
 					days = [];
@@ -539,8 +549,7 @@
 						cell.addClass('active');
 
 					}
-
-
+					
 					cell.data('date', data.days[i]);
 					cell.text(data.days[i].getDate());
 
@@ -569,47 +578,74 @@
 				var disableAfter = new Date();
 				disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(date.full.getMonth() === date.month && date.full > yesterday && date.full < disableAfter) {
+				if(options.enable.length > 0) {
 
-					cell.removeClass('disabled');
+					mod.dates.manageDates(date, cell, 'enable');
+
+				} else {
+
+					if(date.full.getMonth() === date.month && date.full > yesterday && date.full < disableAfter) {
+
+						cell.removeClass('disabled');
+
+					}
+
+					if(date.full.getTime() < today.getTime() && options.disableFuture === true) {
+
+						cell.removeClass('disabled');
+
+					}
 
 				}
 
-				if(date.full.getTime() < today.getTime() && options.disableFuture === true) {
+				if(options.disable.length > 0) {
 
-					cell.removeClass('disabled');
+					mod.dates.manageDates(date, cell, 'disable');
 
 				}
 
-				mod.dates.disableDates(date, cell);
 				mod.dates.disableDOW(date, cell);
 
 			};
 
-			this.disableDates = function(date, cell) {
+			this.manageDates = function(date, cell, func) {
 
-				if(options.disable.length > 0) {
+				var array = func === 'disable' ? options.disable : options.enable;
 
-					for(var i = 0, l = options.disable.length; i < l; i++) {
+				for(var i = 0, l = array.length; i < l; i++) {
 
-						if(typeof options.disable[i] === 'string') {
+					if(typeof array[i] === 'string') {
 
-							var split = options.disable[i].split('-', 3);
+						var split = array[i].split('-', 3);
 
-							if(date.full >= new Date(split[0], (split[1] - 1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) {
+						if(date.full >= new Date(split[0], (split[1] - 1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) {
+
+							if(func === 'disable') {
 
 								cell.addClass('disabled');
+
+							} else {
+
+								cell.removeClass('disabled');
 
 							}
 
-						} else if(typeof options.disable[i] === 'object') {
+						}
 
-							var start = options.disable[i][0].split('-', 3),
-								end = options.disable[i][1].split('-', 3);
+					} else if(typeof array === 'object') {
 
-							if(date.full >= new Date(start[0], (start[1] - 1), start[2]) && date.full <= new Date(end[0], (end[1] - 1), end[2])) {
+						var start = array[i][0].split('-', 3),
+							end = array[i][1].split('-', 3);
+
+						if(date.full >= new Date(start[0], (start[1] - 1), start[2]) && date.full <= new Date(end[0], (end[1] - 1), end[2])) {
+
+							if(func === 'disable') {
 
 								cell.addClass('disabled');
+
+							} else {
+
+								cell.removeClass('disabled');
 
 							}
 
@@ -655,7 +691,11 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					mod.dates.populate(date.getMonth() + i, date.getFullYear(), i);
+					var month = new Date(date);
+
+					month.setMonth(month.getMonth() + i);
+
+					mod.dates.populate(month.getMonth(), month.getFullYear(), i);
 
 				}
 
