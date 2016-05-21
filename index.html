@@ -21,9 +21,10 @@
 
 				$('.picky').picky({
 
-					disable: ['2015-01-08', ['2015-01-16', '2015-01-18'], '2015-01-14', '2015-08-02', ['2015-08-06', '2015-08-10']],
+//					disable: ['2016-06-05'],
+					enable: [['2016-05-22', '2016-06-26']],
 					disablePast: true,
-					disableFuture: 20,
+//					disableFuture: 0,
 					format: 'd/m/Y',
 					disableDays: [],
 					labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -33,7 +34,8 @@
 						console.log(input, cell, date);
 
 					},
-					linked: $('.picky2')
+					linked: $('.picky2'),
+					visibleMonths: 2
 
 				});
 

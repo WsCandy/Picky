@@ -2,11 +2,11 @@
 
 	'use strict';
 
-	var version = '1.5.0',
+	var version = '1.6.0',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
-		
+
 		var results = [],
 			ins;
 
@@ -18,7 +18,7 @@
 
 				if(typeof settings === 'string' && console) {
 
-					console.error('['+ name +' '+ version +'] - not running, try firing methods after initialisation'); 
+					console.error('[' + name + ' ' + version + '] - not running, try firing methods after initialisation');
 					continue;
 
 				}
@@ -41,14 +41,14 @@
 					} else {
 
 						return ins.publicF[settings](params);
-						
+
 					}
 
 				} else {
 
 					if(console) {
-					
-						console.error('['+ name +' '+ version +'] - "'+ settings +'" is not a public method here\'s a nice list:');
+
+						console.error('[' + name + ' ' + version + '] - "' + settings + '" is not a public method here\'s a nice list:');
 						return ins.publicF;
 
 					}
@@ -60,7 +60,7 @@
 		}
 
 		if(results.length >= 1) {
-		
+
 			return results;
 
 		}
@@ -73,35 +73,37 @@
 			mod = {},
 			defaults = {
 
-			disablePast: true,
-			disableFuture: false,
-			disable: [],
-			disableDays: [],
-			format: 'd/m/Y',
-			labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-			monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-			advance: 0,
-			startDay: null,
-			select_callback: null,
-			linked: null
+				disablePast: true,
+				disableFuture: false,
+				enable: [],
+				disable: [],
+				disableDays: [],
+				format: 'd/m/Y',
+				labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+				monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				advance: 0,
+				startDay: null,
+				select_callback: null,
+				linked: null,
+				visibleMonths: 1
 
-		},
-		options = $.extend(defaults, settings), container, header, nav, table, cells,
-		today = options.startDay ? new Date(options.startDay) : new Date(),
-		currentMonth = 0,
-		dayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-		dayFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-		monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-		monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		
+			},
+			options = $.extend(defaults, settings), container = {}, header = {}, nav = {}, table = {}, cells = {},
+			today = options.startDay ? new Date(options.startDay) : new Date(),
+			currentMonth = 0,
+			dayShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			dayFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			monthShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 		if(options.disableFuture === false) {
-			
+
 			options.disableFuture = 100000;
-			
+
 		} else if(options.disableFuture === true) {
-		
+
 			options.disableFuture = 0;
-				
+
 		}
 
 		today.setDate(today.getDate() + options.advance);
@@ -109,8 +111,8 @@
 		var yesterday = options.disablePast === true ? new Date(today.getTime()) : 0;
 
 		if(typeof yesterday === 'object') {
-		
-			yesterday.setDate(today.getDate() -1);
+
+			yesterday.setDate(today.getDate() - 1);
 
 		}
 
@@ -123,11 +125,17 @@
 				if(!setUp.checks()) {
 
 					return;
-					
+
 				}
 
 				mod.elements.construct();
-				mod.dates.populate();
+
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					mod.dates.populate(undefined, undefined, i);
+
+				}
+
 				setUp.bindings();
 
 			},
@@ -135,8 +143,12 @@
 			bindings: function() {
 
 				self.on('click', mod.dates.show);
-				cells.on('click', mod.dates.fillOut);
-				nav.on('click', mod.dates.navigate);
+
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					cells[i].on('click', mod.dates.fillOut);
+					nav[i].on('click', mod.dates.navigate);
+				}
 
 			},
 
@@ -148,7 +160,7 @@
 
 					if(modules.hasOwnProperty(module)) {
 
-						mod[modules[module]] = new ins[modules[module]]();						
+						mod[modules[module]] = new ins[modules[module]]();
 
 					}
 
@@ -162,7 +174,7 @@
 
 					mod.misc.report('warn', 'Please fire the plugin on an input[type="text"] element! - Shutting down... :(');
 					return false;
-					
+
 				}
 
 				return true;
@@ -175,7 +187,11 @@
 
 			getMonth: function(date) {
 
-				mod.dates.populate(date[0], date[1]);
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					mod.dates.populate(date[0] + i, date[1], i);
+
+				}
 
 			},
 
@@ -185,11 +201,16 @@
 				yesterday = options.disablePast === true ? new Date(today.getTime()) : 0;
 				if(typeof yesterday === 'object') {
 
-					yesterday.setDate(today.getDate() -1);
-					
+					yesterday.setDate(today.getDate() - 1);
+
 				}
-				
-				mod.dates.populate(today.getMonth(), today.getFullYear());
+
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					mod.dates.populate(today.getMonth(), today.getFullYear(), i);
+
+				}
+
 			}
 
 		};
@@ -200,7 +221,7 @@
 
 				if(console) {
 
-					console[type]('['+ name +' '+ version +'] - ' + message);
+					console[type]('[' + name + ' ' + version + '] - ' + message);
 
 				}
 
@@ -212,11 +233,15 @@
 
 			this.show = function() {
 
-				if(!container.hasClass('active')){
-					container.addClass('active');
-				}
-				else{
-					container.removeClass('active');
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					if(!container[i].hasClass('active')) {
+						container[i].addClass('active');
+					}
+					else {
+						container[i].removeClass('active');
+					}
+
 				}
 
 			};
@@ -231,31 +256,31 @@
 					return;
 
 				}
-				
+
 				if(cell.hasClass('disabled')) {
 
 					mod.dates.populate(date.getMonth(), date.getFullYear());
 					return;
 
-				}				
+				}
 
 				mod.dates.setValues(cell, date);
 				mod.dates.linkedOptions(cell, date);
 
 			};
-			
+
 			this.parseDouble = function(value) {
-				
+
 				if(value < 10) {
-				
-					return '0'+value;
-						
+
+					return '0' + value;
+
 				} else {
-				
+
 					return value;
-						
+
 				}
-				
+
 			};
 
 			this.parseCharacter = function(character, date) {
@@ -266,31 +291,31 @@
 
 						return mod.dates.parseDouble(date.getDate());
 
-					break;
+						break;
 
 					case 'j' :
 
 						return date.getDate();
 
-					break;
+						break;
 
 					case 'D' :
 
 						return dayShort[date.getDay()];
 
-					break;
+						break;
 
 					case 'l' :
 
 						return dayFull[date.getDay()];
 
-					break;
+						break;
 
 					case 'w' :
 
 						return date.getDay();
 
-					break;
+						break;
 
 					case 'S' :
 
@@ -302,71 +327,71 @@
 
 								return 'st';
 
-							break;
+								break;
 
 							case '2' :
 
 								return 'nd';
 
-							break;
+								break;
 
 							case '3' :
 
 								return 'rd';
 
-							break;
+								break;
 
 							default :
 
 								return 'th';
 
-							break;
+								break;
 
 						}
 
-					break;
+						break;
 
 					case 'F' :
 
 						return monthFull[date.getMonth()];
 
-					break;
+						break;
 
 					case 'm' :
 
 						return mod.dates.parseDouble(date.getMonth() + 1);
 
-					break;
+						break;
 
 					case 'M' :
 
 						return monthShort[date.getMonth()];
 
-					break;
+						break;
 
 					case 'n' :
 
 						return date.getMonth() + 1;
 
-					break;
+						break;
 
 					case 'Y' :
 
 						return date.getFullYear();
 
-					break;
+						break;
 
 					case 'y' :
 
 						return String(date.getFullYear()).substr(2);
 
-					break;
+						break;
 
 					default :
 
 						return character;
 
-					break;
+						break;
 
 				}
 
@@ -389,14 +414,19 @@
 			this.setValues = function(cell, date) {
 
 				var dateValue = this.formatDate(options.format, date);
-				
+
 				self.val(dateValue);
-				container.removeClass('active');
-				
+
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					container[i].removeClass('active');
+
+				}
+
 				if(typeof options.select_callback === 'function') {
 
 					options.select_callback(self, cell, date);
-					
+
 				}
 
 			};
@@ -406,19 +436,34 @@
 				if(typeof options.linked === 'object' && (options.linked && options.linked.length > 0) && options.linked.data('ins') !== ins && options.disableFuture !== true) {
 
 					var startDate = new Date(date);
-						startDate.setDate(date.getDate() +1);
+					startDate.setDate(date.getDate() + 1);
 
 					options.linked.picky('setStart', startDate);
 					options.linked.val('');
-					
+
 				}
 
 			};
 
-			this.getDays = function(month, year) {
+			this.getDays = function(month, year, index) {
+
+				var initial = month;
 
 				month = (month === undefined ? today.getMonth() : month);
 				year = (year === undefined ? today.getFullYear() : year);
+
+				if(initial === undefined) {
+
+					month = month + index;
+
+				}
+
+				if(month >= 12) {
+
+					month = month - 12;
+					year += 1;
+
+				}
 
 				var date = new Date(year, month, 1),
 					days = [];
@@ -441,66 +486,88 @@
 
 			};
 
-			this.populate = function(month, year) {
+			this.populate = function(month, year, index) {
 
-				var days = mod.dates.getDays(month, year),
+				var days = mod.dates.getDays(month, year, index),
 					firstDayOffset = days[0].getDay() - 1 === -1 ? 6 : days[0].getDay() - 1;
 
 				month = month || days[0].getMonth();
 				year = year || today.getFullYear();
-				currentMonth = new Date(days[0].getTime());
-				
-				cells = table.find('.picky__table--cell');
-				cells.addClass('disabled');
-				cells.removeClass('active');
 
-				header.text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
+				if(index === 0) {
 
-				mod.dates.populateMonth(days, month, year, firstDayOffset);
-				mod.dates.populateNextMonth(days, month, year, firstDayOffset);
+					currentMonth = new Date(days[0].getTime());
 
-				mod.dates.setNav();
+				}
+
+				cells[index] = table[index].find('.picky__table--cell');
+				cells[index].addClass('disabled');
+				cells[index].removeClass('active');
+
+				header[index].text(options.monthNames[days[0].getMonth()] + ' ' + days[0].getFullYear());
+
+				mod.dates.populateMonth({
+
+					days: days,
+					month: month,
+					year: year,
+					firstDayOffset: firstDayOffset,
+					index: index
+
+				});
+
+				mod.dates.populateNextMonth({
+
+					days: days,
+					month: month,
+					year: year,
+					firstDayOffset: firstDayOffset,
+					index: index
+
+				});
+
+				mod.dates.setNav(index);
 
 			};
 
-			this.populateMonth = function(days, month, year, firstDayOffset) {
+			this.populateMonth = function(data) {
 
-				for(var i = 0, l = cells.length; i < l; i++) {
+				for(var i = 0, l = cells[data.index].length; i < l; i++) {
 
-					var cell = $(cells[i + firstDayOffset]);
+					var cell = $(cells[data.index][i + data.firstDayOffset]);
 
 					mod.dates.activateDay({
 
-						full: days[i],
-						month: month,
-						year: year
+						full: data.days[i],
+						month: data.month,
+						year: data.year
 
 					}, cell);
 
-					if(days[i].getMonth() === today.getMonth() && days[i].getDate() === today.getDate() && days[i].getYear() === today.getYear()) {
+					if(data.days[i].getMonth() === today.getMonth() && data.days[i].getDate() === today.getDate() && data.days[i].getYear() === today.getYear()) {
 
 						cell.addClass('active');
 
 					}
-
-					cell.data('date', days[i]);
-					cell.text(days[i].getDate());
+					
+					cell.data('date', data.days[i]);
+					cell.text(data.days[i].getDate());
 
 				}
 
 			};
 
-			this.populateNextMonth = function(days, month, year, firstDayOffset) {
+			this.populateNextMonth = function(data) {
 
-				for(var i = firstDayOffset -1; i >= 0; i--) {
+				for(var i = data.firstDayOffset - 1; i >= 0; i--) {
 
-					var cell = $(cells[i]);
+					var cell = $(cells[data.index][i]);
 
-					days.push(new Date(year, month, 1));
-					days[days.length - 1].setDate(days[i].getDate() - firstDayOffset);
+					data.days.push(new Date(data.year, data.month, 1));
+					data.days[data.days.length - 1].setDate(data.days[i].getDate() - data.firstDayOffset);
 
-					cell.data('date', days[days.length - 1]);
-					cell.text(days[days.length - 1].getDate());
+					cell.data('date', data.days[data.days.length - 1]);
+					cell.text(data.days[data.days.length - 1].getDate());
 
 				}
 
@@ -509,56 +576,83 @@
 			this.activateDay = function(date, cell) {
 
 				var disableAfter = new Date();
-					disableAfter.setDate(today.getDate() + options.disableFuture);
+				disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(date.full.getMonth() === date.month && date.full > yesterday && date.full < disableAfter) {
+				if(options.enable.length > 0) {
 
-					cell.removeClass('disabled');
+					mod.dates.manageDates(date, cell, 'enable');
+
+				} else {
+
+					if(date.full.getMonth() === date.month && date.full > yesterday && date.full < disableAfter) {
+
+						cell.removeClass('disabled');
+
+					}
+
+					if(date.full.getTime() < today.getTime() && options.disableFuture === true) {
+
+						cell.removeClass('disabled');
+
+					}
 
 				}
-
-				if(date.full.getTime() < today.getTime() && options.disableFuture === true) {
-
-					cell.removeClass('disabled');
-
-				}
-
-				mod.dates.disableDates(date, cell);
-				mod.dates.disableDOW(date, cell);				
-
-			};
-
-			this.disableDates = function(date, cell) {
 
 				if(options.disable.length > 0) {
 
-					for(var i = 0, l = options.disable.length; i < l; i++) {
+					mod.dates.manageDates(date, cell, 'disable');
 
-						if(typeof options.disable[i] === 'string') {
+				}
 
-							var split = options.disable[i].split('-', 3);
-							
-							if(date.full >= new Date(split[0], (split[1] -1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) {
+				mod.dates.disableDOW(date, cell);
+
+			};
+
+			this.manageDates = function(date, cell, func) {
+
+				var array = func === 'disable' ? options.disable : options.enable;
+
+				for(var i = 0, l = array.length; i < l; i++) {
+
+					if(typeof array[i] === 'string') {
+
+						var split = array[i].split('-', 3);
+
+						if(date.full >= new Date(split[0], (split[1] - 1), split[2]) && date.full <= new Date(split[0], (split[1] - 1), split[2])) {
+
+							if(func === 'disable') {
 
 								cell.addClass('disabled');
+
+							} else {
+
+								cell.removeClass('disabled');
 
 							}
 
-						} else if(typeof options.disable[i] === 'object') {
+						}
 
-							var start = options.disable[i][0].split('-', 3),
-								end =  options.disable[i][1].split('-', 3);
+					} else if(typeof array === 'object') {
 
-							if(date.full >= new Date(start[0], (start[1] -1), start[2]) && date.full <= new Date(end[0], (end[1] -1), end[2])) {
+						var start = array[i][0].split('-', 3),
+							end = array[i][1].split('-', 3);
+
+						if(date.full >= new Date(start[0], (start[1] - 1), start[2]) && date.full <= new Date(end[0], (end[1] - 1), end[2])) {
+
+							if(func === 'disable') {
 
 								cell.addClass('disabled');
+
+							} else {
+
+								cell.removeClass('disabled');
 
 							}
 
 						}
 
 					}
-					
+
 				}
 
 			};
@@ -577,7 +671,7 @@
 
 			};
 
-			this.setNav = function() {
+			this.setNav = function(index) {
 
 				var next = new Date(currentMonth.getTime()),
 					prev = new Date(currentMonth.getTime());
@@ -585,18 +679,25 @@
 				next.setMonth(next.getMonth() + 1);
 				prev.setMonth(prev.getMonth() - 1);
 
-				container.find('.picky__nav--next').data('date', next);
-				container.find('.picky__nav--prev').data('date', prev);
+				container[index].find('.picky__nav--next').data('date', next);
+				container[index].find('.picky__nav--prev').data('date', prev);
 
 			};
 
 			this.navigate = function(e) {
 
 				var date = $(this).data('date');
-
 				e.preventDefault();
 
-				mod.dates.populate(date.getMonth(), date.getFullYear());
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					var month = new Date(date);
+
+					month.setMonth(month.getMonth() + i);
+
+					mod.dates.populate(month.getMonth(), month.getFullYear(), i);
+
+				}
 
 			};
 
@@ -607,15 +708,20 @@
 			this.construct = function() {
 
 				self.attr('readonly', true);
-				mod.elements.createContainer().createHeader().createNav().createTable();
+
+				for(var i = 0; i < options.visibleMonths; i++) {
+
+					mod.elements.createContainer(i).createHeader(i).createNav(i).createTable(i);
+
+				}
 
 			};
 
-			this.createContainer = function() {
+			this.createContainer = function(index) {
 
-				container = $('<div />', {
+				container[index] = $('<div />', {
 
-					'class' : 'picky__container'
+					'class': 'picky__container  picky__container--' + index
 
 				}).appendTo(self.parent());
 
@@ -623,50 +729,61 @@
 
 			};
 
-			this.createNav = function() {
+			this.createNav = function(index) {
 
-				for(var i = 0; i < 2; i++) {
+				if(index === 0) {
 
 					$('<a />', {
 
-						'class' : 'picky__nav picky__nav' + (i === 0 ? '--prev' : '--next'),
-						'href' : '#'
+						'class': 'picky__nav picky__nav--prev',
+						'href': '#'
 
-					}).prependTo(container);
+					}).prependTo(container[index]);
 
 				}
 
-				nav = container.find('.picky__nav');
+				if(index === options.visibleMonths - 1) {
+
+					$('<a />', {
+
+						'class': 'picky__nav picky__nav--next',
+						'href': '#'
+
+					}).prependTo(container[index]);
+
+				}
+
+				nav[index] = container[index].find('.picky__nav');
 
 				return mod.elements;
 
 			};
 
-			this.createHeader = function() {
+			this.createHeader = function(index) {
 
-				header = $('<p />', {
+				header[index] = $('<p />', {
 
-					'class' : 'picky__header'
+					'class': 'picky__header'
 
-				}).prependTo(container);
+				}).prependTo(container[index]);
 
-				header.text(options.monthNames[today.getMonth()] + ' ' + today.getFullYear());
+				header[index].text(options.monthNames[today.getMonth()] + ' ' + today.getFullYear());
 
 				return mod.elements;
 
 			};
 
-			this.createTable = function() {
+			this.createTable = function(index) {
 
-				table = $('<table />', {
+				table[index] = $('<table />', {
 
-					'class' : 'picky__table'
+					'class': 'picky__table'
 
-				}).appendTo(container);
+				}).appendTo(container[index]);
 
 				for(var i = 0; i < 7; i++) {
 
-					mod.elements.createRow(i);
+					mod.elements.createRow(i, index);
 
 				}
 
@@ -674,15 +791,15 @@
 
 			};
 
-			this.createRow = function(rowIndex) {
+			this.createRow = function(rowIndex, index) {
 
-				var row = $('<tr />').appendTo(table);
+				var row = $('<tr />').appendTo(table[index]);
 
 				for(var i = 0; i < 7; i++) {
 
 					var cell = $('<td />', {
 
-						'class' : 'picky__table--' + (rowIndex === 0 ? 'heading' : 'cell')
+						'class': 'picky__table--' + (rowIndex === 0 ? 'heading' : 'cell')
 
 					}).appendTo(row);
 
@@ -694,7 +811,7 @@
 
 				}
 
-			};	
+			};
 
 		};
 
