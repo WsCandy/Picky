@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="field-wrap">
-			<input type="text" class="picky picky2">
+			<!--<input type="text" class="picky picky2">-->
 		</div>
 
 		<script>
@@ -23,7 +23,7 @@
 
 					disable: ['2015-01-08', ['2015-01-16', '2015-01-18'], '2015-01-14', '2015-08-02', ['2015-08-06', '2015-08-10']],
 					disablePast: true,
-					disableFuture: 20,
+					disableFuture: 30,
 					format: 'd/m/Y',
 					disableDays: [],
 					labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -33,7 +33,8 @@
 						console.log(input, cell, date);
 
 					},
-					linked: $('.picky2')
+//					linked: $('.picky2'),
+					visibleMonths: 3
 
 				});
 

@@ -12,6 +12,7 @@ $('.picky').picky({
 		console.log(input, cell, date);
 
 	},
-	linked: $('.picky2')
+	linked: $('.picky2'),
+	visibleMonths: 1
 
 });

@@ -42,14 +42,30 @@ body {
     position: absolute;
     top: 100%;
     right: 0;
-    -webkit-transform-origin: top center;
     background: #181818;
-    -webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
     display: none; }
     .picky__container.active {
-      -webkit-animation: showCal 1s linear;
-      -webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
       display: block; }
+    .picky__container--1 {
+      right: -275px; }
+    .picky__container--2 {
+      right: -550px; }
+    .picky__container--3 {
+      right: -825px; }
+    .picky__container--4 {
+      right: -1100px; }
+    .picky__container--5 {
+      right: -1375px; }
+    .picky__container--6 {
+      right: -1650px; }
+    .picky__container--7 {
+      right: -1925px; }
+    .picky__container--8 {
+      right: -2200px; }
+    .picky__container--9 {
+      right: -2475px; }
+    .picky__container--10 {
+      right: -2750px; }
   .picky__header {
     text-align: center;
     color: #47b5b3;

@@ -94,20 +94,28 @@ $picky_disabled_font: #515150;
 		position: absolute;
 		top: 100%;
 		right: 0;
-		-webkit-transform-origin: top center;
 
 		background: $picky_bg;
 
-		-webkit-transform: perspective(1000px) rotateX(90deg) translateY(-100%);
 		display: none;
 
 		&.active {
 
-			-webkit-animation: showCal 1s linear;
-			-webkit-transform: perspective(1000px) rotateX(0deg) translateY(0%);
 			display: block;
 
 		}
+
+		@for $i from 1 through 10 {
+
+			&--#{$i} {
+
+				right: -#{$i * 275px};
+
+			}
+
+		}
+
+
 
 	}
 
