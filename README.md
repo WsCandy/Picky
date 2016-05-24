@@ -1,12 +1,19 @@
-Picky - v1.6.0
-=====
+Picky - v1.6.1
+==============
+
+1.6.1 Update
+---
+
+Added in a change event to hook into once a value is selected.
+
+#####10.2kb, (6kb min)
+
+---
 
 1.6.0 Update
 ---
 
 Added in multiple visibleMonth option and allowed for date range enable, see the options below.
-
-#####10.2kb, (6kb min)
 
 ---
 
@@ -15,23 +22,6 @@ Added in multiple visibleMonth option and allowed for date range enable, see the
 Added in a date format option, reference the [PHP date docs](http://php.net/manual/en/function.date.php) for full information
 
 ---
-
-1.4.2 Update
-
-Updated bower.json with correct info.
-
----
-
-1.4.1 Update
-
-
-Fixed a bug with disable future
-
----
-
-1.4.0
-
-Overhauled the code to make it easier to read and adhere to common coding standards, it's a lot neater now!
 
 #####Release History
 

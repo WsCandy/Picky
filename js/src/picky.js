@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var version = '1.6.0',
+	var version = '1.6.1',
 		name = 'Picky';
 
 	$.fn.picky = function(settings, params) {
@@ -428,6 +428,8 @@
 					options.select_callback(self, cell, date);
 
 				}
+
+				self.trigger('change');
 
 			};
 
