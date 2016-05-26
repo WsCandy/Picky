@@ -691,6 +691,8 @@
 				var date = $(this).data('date');
 				e.preventDefault();
 
+				self.trigger('navigateMonth', date);
+
 				for(var i = 0; i < options.visibleMonths; i++) {
 
 					var month = new Date(date);
