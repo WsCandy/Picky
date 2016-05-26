@@ -688,10 +688,10 @@
 
 			this.navigate = function(e) {
 
-				var date = $(this).data('date');
-				e.preventDefault();
+				var date = $(this).data('date'),
+					dates = {};
 
-				self.trigger('navigateMonth', date);
+				e.preventDefault();
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
@@ -699,9 +699,13 @@
 
 					month.setMonth(month.getMonth() + i);
 
+					dates[i] = month;
+
 					mod.dates.populate(month.getMonth(), month.getFullYear(), i);
 
 				}
+
+				self.trigger('navigateMonth', dates);
 
 			};
 
