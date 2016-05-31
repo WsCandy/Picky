@@ -686,16 +686,18 @@
 
 			};
 
-			this.navigate = function(e) {
+			this.draw = function(e) {
 
-				var date = $(this).data('date'),
-					dates = {};
+				if (e) {
+					e.preventDefault();
+					this.display_date = $(e.target).data('date');
+				}
 
-				e.preventDefault();
+				var dates = {};
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					var month = new Date(date);
+					var month = new Date(this.display_date);
 
 					month.setMonth(month.getMonth() + i);
 
@@ -705,7 +707,13 @@
 
 				}
 
-				self.trigger('navigateMonth', dates);
+				return dates;
+
+			};
+
+			this.navigate = function(e) {
+
+				self.trigger('navigateMonth', mod.dates.draw(e));
 
 			};
 
