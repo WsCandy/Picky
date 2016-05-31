@@ -75,7 +75,7 @@
 
 				disablePast: true,
 				disableFuture: false,
-				enable: [],
+				enable: null,
 				disable: [],
 				disableDays: [],
 				format: 'd/m/Y',
@@ -580,7 +580,7 @@
 				var disableAfter = new Date();
 				disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(options.enable.length > 0) {
+				if(Array.isArray(options.enable)) {
 
 					mod.dates.manageDates(date, cell, 'enable');
 
