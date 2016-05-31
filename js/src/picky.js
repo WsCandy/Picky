@@ -211,6 +211,16 @@
 
 				}
 
+			},
+
+			setEnable: function(data) {
+
+				if (Array.isArray(data)) {
+					options.enable = data;
+
+					mod.dates.draw();
+				}
+
 			}
 
 		};
