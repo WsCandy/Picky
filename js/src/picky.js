@@ -207,7 +207,7 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					mod.dates.populate(today.getMonth(), today.getFullYear(), i);
+					mod.dates.populate(undefined, undefined, i);
 
 				}
 
