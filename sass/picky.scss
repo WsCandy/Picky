@@ -203,8 +203,6 @@ $picky_disabled_font: #515150;
 			text-transform: uppercase;
 			font-weight: bold;
 			background: $picky_disabled_bg;
-			
-			
 
 		}
 
@@ -233,6 +231,19 @@ $picky_disabled_font: #515150;
 			}
 
 		}
+
+	}
+
+	&__close {
+
+		background: $picky_disabled_bg;
+		color: $picky_primary;
+		display: block;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 5px;
+		text-align: center;
+		text-transform: uppercase;
 
 	}
 

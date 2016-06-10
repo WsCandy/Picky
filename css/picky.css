@@ -127,5 +127,14 @@ body {
         cursor: default;
         background: #272725;
         color: #515150; }
+  .picky__close {
+    background: #272725;
+    color: #47b5b3;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase; }
 
 /*# sourceMappingURL=picky.css.map */
