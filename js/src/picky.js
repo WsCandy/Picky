@@ -4,6 +4,7 @@
 
 	var version = '1.6.1',
 		name = 'Picky';
+		counter = 0;
 
 	$.fn.picky = function(settings, params) {
 
@@ -821,6 +822,14 @@
 
 				var row = $('<tr />').appendTo(table[index]);
 
+				if (counter == 7) {
+					counter = 0;
+				}
+
+				if (counter < 7) {
+					row.addClass('row' + counter);
+				}
+
 				for(var i = 0; i < 7; i++) {
 
 					var cell = $('<td />', {
@@ -836,6 +845,7 @@
 					}
 
 				}
+				counter++;
 
 			};
 
