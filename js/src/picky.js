@@ -541,6 +541,8 @@
 
 				mod.dates.setNav(index);
 
+				mod.dates.closes(index);
+
 			};
 
 			this.populateMonth = function(data) {
@@ -728,6 +730,18 @@
 
 			};
 
+			this.closes = function() {
+
+				$('.picky__close').on('click', function(e){
+
+					e.preventDefault();
+
+					$('.picky__container').removeClass('active');
+
+				});
+
+			};
+
 		};
 
 		ins.elements = function() {
@@ -738,7 +752,7 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					mod.elements.createContainer(i).createHeader(i).createNav(i).createTable(i);
+					mod.elements.createContainer(i).createHeader(i).createNav(i).createTable(i).createClose(i);;
 
 				}
 
@@ -848,6 +862,23 @@
 				counter++;
 
 			};
+
+			this.createClose = function(index) {
+
+				if(index === options.visibleMonths - 1) {
+
+					$('<a />', {
+
+						'class': 'picky__close',
+						'href': ''
+
+					}).html('Close').appendTo(container[index]);
+
+				}
+
+				return mod.elements;
+
+			}
 
 		};
 
