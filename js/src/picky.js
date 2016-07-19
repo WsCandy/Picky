@@ -417,6 +417,10 @@
 
 				self.val(dateValue);
 
+				console.log($('.picky__container.active .picky__table--cell.active').removeClass('active')); //Just done as a quick fix, needs to be looked at in more depth ideally.
+
+				cell.addClass('active');
+
 				for(var i = 0; i < options.visibleMonths; i++) {
 
 					container[i].removeClass('active');
