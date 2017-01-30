@@ -551,13 +551,15 @@
 
 					var cell = $(cells[data.index][i + data.firstDayOffset]);
 
-					mod.dates.activateDay({
+					if (data.days[i].getMonth() == data.month) {
+						mod.dates.activateDay({
 
-						full: data.days[i],
-						month: data.month,
-						year: data.year
+							full: data.days[i],
+							month: data.month,
+							year: data.year
 
-					}, cell);
+						}, cell);
+					}
 
 					if(data.days[i].getMonth() === today.getMonth() && data.days[i].getDate() === today.getDate() && data.days[i].getYear() === today.getYear()) {
 
