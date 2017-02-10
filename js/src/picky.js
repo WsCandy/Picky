@@ -236,6 +236,7 @@
 				for(var i = 0; i < options.visibleMonths; i++) {
 
 					if(!container[i].hasClass('active')) {
+						$('.picky__container').removeClass('active');
 						container[i].addClass('active');
 					}
 					else {
