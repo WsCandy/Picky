@@ -3,7 +3,8 @@
 	'use strict';
 
 	var version = '1.6.1',
-		name = 'Picky';
+		name = 'Picky',
+		counter = 0;
 
 	$.fn.picky = function(settings, params) {
 
@@ -75,7 +76,7 @@
 
 				disablePast: true,
 				disableFuture: false,
-				enable: [],
+				enable: null,
 				disable: [],
 				disableDays: [],
 				format: 'd/m/Y',
@@ -207,8 +208,18 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					mod.dates.populate(today.getMonth(), today.getFullYear(), i);
+					mod.dates.populate(undefined, undefined, i);
 
+				}
+
+			},
+
+			setEnable: function(data) {
+
+				if (Array.isArray(data)) {
+					options.enable = data;
+
+					mod.dates.draw();
 				}
 
 			}
@@ -530,6 +541,8 @@
 
 				mod.dates.setNav(index);
 
+				mod.dates.closes(index);
+
 			};
 
 			this.populateMonth = function(data) {
@@ -580,7 +593,7 @@
 				var disableAfter = new Date();
 				disableAfter.setDate(today.getDate() + options.disableFuture);
 
-				if(options.enable.length > 0) {
+				if(Array.isArray(options.enable)) {
 
 					mod.dates.manageDates(date, cell, 'enable');
 
@@ -686,16 +699,18 @@
 
 			};
 
-			this.navigate = function(e) {
+			this.draw = function(e) {
 
-				var date = $(this).data('date'),
-					dates = {};
+				if (e) {
+					e.preventDefault();
+					this.display_date = $(e.target).data('date');
+				}
 
-				e.preventDefault();
+				var dates = {};
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					var month = new Date(date);
+					var month = new Date(this.display_date);
 
 					month.setMonth(month.getMonth() + i);
 
@@ -705,7 +720,25 @@
 
 				}
 
-				self.trigger('navigateMonth', dates);
+				return dates;
+
+			};
+
+			this.navigate = function(e) {
+
+				self.trigger('navigateMonth', mod.dates.draw(e));
+
+			};
+
+			this.closes = function() {
+
+				$('.picky__close').on('click', function(e){
+
+					e.preventDefault();
+
+					$('.picky__container').removeClass('active');
+
+				});
 
 			};
 
@@ -719,7 +752,7 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					mod.elements.createContainer(i).createHeader(i).createNav(i).createTable(i);
+					mod.elements.createContainer(i).createHeader(i).createNav(i).createTable(i).createClose(i);;
 
 				}
 
@@ -803,6 +836,14 @@
 
 				var row = $('<tr />').appendTo(table[index]);
 
+				if (counter == 7) {
+					counter = 0;
+				}
+
+				if (counter < 7) {
+					row.addClass('row' + counter);
+				}
+
 				for(var i = 0; i < 7; i++) {
 
 					var cell = $('<td />', {
@@ -818,8 +859,26 @@
 					}
 
 				}
+				counter++;
 
 			};
+
+			this.createClose = function(index) {
+
+				if(index === options.visibleMonths - 1) {
+
+					$('<a />', {
+
+						'class': 'picky__close',
+						'href': ''
+
+					}).html('Close').appendTo(container[index]);
+
+				}
+
+				return mod.elements;
+
+			}
 
 		};
 
