@@ -417,6 +417,9 @@
 
 				self.val(dateValue);
 
+				cell.closest('.picky__container').parent().find('.picky__table--cell.active').removeClass('active');
+				cell.addClass('active');
+
 				for(var i = 0; i < options.visibleMonths; i++) {
 
 					container[i].removeClass('active');
