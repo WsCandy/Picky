@@ -712,7 +712,7 @@
 
 				for(var i = 0; i < options.visibleMonths; i++) {
 
-					var month = new Date(this.display_date);
+					var month = typeof this.display_date != 'undefined' ? new Date(this.display_date) : new Date();
 
 					month.setMonth(month.getMonth() + i);
 
